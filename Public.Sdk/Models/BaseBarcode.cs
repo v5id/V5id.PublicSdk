@@ -1,7 +1,7 @@
-namespace V5id.Public.Sdk.Models;
+namespace V5id.PublicSdk.Models;
 
 using System.Text.Json.Serialization;
-using Attributes;
+using V5id.PublicSdk.Attributes;
 
 internal abstract class BaseBarcode
 {

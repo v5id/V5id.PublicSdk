@@ -1,6 +1,5 @@
-namespace V5id.Public.Sdk.Enums;
+namespace V5id.PublicSdk.Enums;
 
-using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json.Serialization;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

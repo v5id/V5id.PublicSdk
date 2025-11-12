@@ -1,4 +1,4 @@
-namespace V5id.Public.Sdk.Models;
+namespace V5id.PublicSdk.Models;
 
 public class BoundingBox
 {

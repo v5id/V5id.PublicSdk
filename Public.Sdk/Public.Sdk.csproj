@@ -12,7 +12,7 @@
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
 	<AnalysisLevel>latest-all</AnalysisLevel>
-	<RootNamespace>V5id.Public.Sdk</RootNamespace>
+	<RootNamespace>V5id.PublicSdk</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />

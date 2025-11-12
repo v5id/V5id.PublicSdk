@@ -1,4 +1,4 @@
-namespace V5id.Public.Sdk.Enums;
+namespace V5id.PublicSdk.Enums;
 
 public enum CountryType
 {

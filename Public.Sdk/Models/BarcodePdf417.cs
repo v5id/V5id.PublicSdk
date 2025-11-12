@@ -1,16 +1,15 @@
+namespace V5id.PublicSdk.Models;
+
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using V5id.PublicSdk.Attributes;
+using V5id.PublicSdk.Enums;
+using V5id.PublicSdk.Helpers;
 
-namespace V5id.Public.Sdk.Models;
-
-using System;
-using Attributes;
-using Enums;
-using Helpers;
-
-internal class BarcodePdf417 : BaseBarcode
+internal sealed class BarcodePdf417 : BaseBarcode
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     internal string? SourceString { get; init; }

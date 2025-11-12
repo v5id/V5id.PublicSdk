@@ -1,4 +1,4 @@
-namespace V5id.Public.Sdk.Helpers;
+namespace V5id.PublicSdk.Helpers;
 
 using System;
 using System.Collections.ObjectModel;
@@ -121,7 +121,7 @@ internal static class FormattingHelper
             string[] names = nameString.Split(' ');
             if (names.Length > 1)
             {
-                int firstSpaceIndex = nameString.IndexOf(' ');
+                int firstSpaceIndex = nameString.IndexOf(' ', StringComparison.InvariantCultureIgnoreCase);
 
                 return (first: names[0], middle: (firstSpaceIndex == -1) ? string.Empty : nameString[(firstSpaceIndex + 1)..]);
             }

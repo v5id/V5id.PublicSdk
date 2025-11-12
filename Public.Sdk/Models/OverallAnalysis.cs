@@ -1,6 +1,6 @@
-namespace V5id.Public.Sdk.Models;
+namespace V5id.PublicSdk.Models;
 
-using Enums;
+using V5id.PublicSdk.Enums;
 
 public class OverallAnalysis
 {
