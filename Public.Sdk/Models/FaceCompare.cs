@@ -1,5 +1,7 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
+
 public class FaceCompare
 {
     public Guid FaceCompareResultUuid { get; init; }

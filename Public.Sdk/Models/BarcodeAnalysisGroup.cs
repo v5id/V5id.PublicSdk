@@ -1,9 +1,11 @@
 namespace V5id.Public.Sdk.Models;
 
-public record AnalysisGroup(
+using System.Collections.Generic;
+
+public record BarcodeAnalysisGroup(
     string GroupKey,
     string Description,
     string? Tooltip,
-    List<AnalysisItem> Items,
+    IList<BarcodeAnalysisDto> Items,
     int Order
-);
+    );

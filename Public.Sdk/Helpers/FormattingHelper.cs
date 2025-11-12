@@ -1,6 +1,8 @@
 namespace V5id.Public.Sdk.Helpers;
 
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Models;
 
 internal static class FormattingHelper

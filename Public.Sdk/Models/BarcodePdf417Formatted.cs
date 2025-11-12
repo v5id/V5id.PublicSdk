@@ -1,5 +1,6 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;

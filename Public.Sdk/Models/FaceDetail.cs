@@ -1,5 +1,7 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
+
 public class FaceDetail
 {
     public Guid FaceDetailUuid { get; init; }

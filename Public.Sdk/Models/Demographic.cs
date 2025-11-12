@@ -1,5 +1,8 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
+using System.Collections.Generic;
+
 public class Demographic
 {
     public Guid DemographicUuid { get; init; }
@@ -20,5 +23,5 @@ public class Demographic
 
     public string? Ssn { get; init; }
 
-    public List<DemographicAnalyzer>? DemographicAnalysis { get; init; }
+    public IList<DemographicAnalyzer>? DemographicAnalysis { get; init; }
 }

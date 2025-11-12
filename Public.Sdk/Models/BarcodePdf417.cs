@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace V5id.Public.Sdk.Models;
 
+using System;
 using Attributes;
 using Enums;
 using Helpers;

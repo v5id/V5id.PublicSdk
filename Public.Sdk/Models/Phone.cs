@@ -1,5 +1,7 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
+using System.Collections.Generic;
 using Enums;
 
 public class Phone

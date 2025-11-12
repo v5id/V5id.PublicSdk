@@ -1,5 +1,8 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
+using System.Collections.Generic;
+
 public class BarcodeDetail
 {
     public Guid BarcodeUuid { get; init; }

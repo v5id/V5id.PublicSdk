@@ -1,5 +1,7 @@
 namespace V5id.Public.Sdk.Models;
 
+using System;
+
 public class SignatureDetail
 {
     public Guid SignatureDetailUuid { get; init; }
