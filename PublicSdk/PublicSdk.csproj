@@ -3,16 +3,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Title>Storage SDK </Title>
-    <PackageId>V5Id.$(AssemblyName)</PackageId>
-    <Product>V5Id.$(AssemblyName)</Product>
-    <AssemblyName>V5Id.$(MSBuildProjectName)</AssemblyName>
+    <PackageId>V5iD.$(AssemblyName)</PackageId>
+    <Product>V5iD.$(AssemblyName)</Product>
+    <AssemblyName>V5iD.$(MSBuildProjectName)</AssemblyName>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
 	<AnalysisLevel>latest-all</AnalysisLevel>
-	<RootNamespace>V5id.PublicSdk</RootNamespace>
+	<RootNamespace>V5iD.PublicSdk</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />

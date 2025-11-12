@@ -1,9 +1,9 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyCompany("V5Id.")]
-[assembly: AssemblyTrademark("™ V5Id.")]
-[assembly: AssemblyCopyright("© V5Id. All right reserved.")]
+[assembly: AssemblyCompany("V5iD.")]
+[assembly: AssemblyTrademark("™ V5iD.")]
+[assembly: AssemblyCopyright("© V5iD. All right reserved.")]
 
 // This shows up as Product Version in Windows Explorer
 // We make this the same for all files in a particular product version. And increment it globally for all projects.

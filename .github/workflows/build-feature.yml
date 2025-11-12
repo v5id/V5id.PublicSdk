@@ -35,16 +35,16 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Build with dotnet
-      run: dotnet build ./V5id.Public.Sdk.sln --configuration Release
+      run: dotnet build ./V5iD.Public.Sdk.sln --configuration Release
       
     - name: Test with dotnet
-      run: dotnet test ./V5id.Public.Sdk.sln --configuration Release  --no-build
+      run: dotnet test ./V5iD.Public.Sdk.sln --configuration Release  --no-build
       
     - name: Build nuget packages
       run: |
-        dotnet pack ./PublicSdk/PublicSdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5id.PublicSdk"
+        dotnet pack ./PublicSdk/PublicSdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5iD.Sdk"
 
 
     - name: Publish NuGet Files
       run: |
-          dotnet nuget push "./nuget/V5id.PublicSdk/*.nupkg" --source "nuget.org" --api-key ${{ secrets.ACTION_PACKAGE_API_KEY }}
+          dotnet nuget push "./nuget/V5iD.PublicSdk/*.nupkg" --source "nuget.org" --api-key ${{ secrets.ACTION_PACKAGE_API_KEY }}
