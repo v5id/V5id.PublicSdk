@@ -42,9 +42,9 @@ jobs:
       
     - name: Build nuget packages
       run: |
-        dotnet pack ./Public.Sdk/Public.Sdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5id.Public.Sdk"
+        dotnet pack ./PublicSdk/PublicSdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5id.PublicSdk"
 
 
     - name: Publish NuGet Files
       run: |
-          dotnet nuget push "./nuget/V5id.Public.Sdk/*.nupkg" --source "nuget.org" --api-key ${{ secrets.ACTION_PACKAGE_API_KEY }}
+          dotnet nuget push "./nuget/V5id.PublicSdk/*.nupkg" --source "nuget.org" --api-key ${{ secrets.ACTION_PACKAGE_API_KEY }}
