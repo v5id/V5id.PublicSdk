@@ -1,0 +1,28 @@
+namespace V5id.Public.Sdk.Models;
+
+using Enums;
+
+public class Verification
+{
+    public string VerificationUuid { get; init; } = string.Empty;
+
+    public string ClientId { get; init; } = string.Empty;
+
+    public VerificationStatus VerificationStatus { get; init; }
+    
+    public VerificationOverallStatus VerificationOverallStatus { get; init; }
+    
+    public DateTime CreatedDate { get; init; }
+    
+    public bool SupportRequestSend { get; init; }
+
+    public IList<FaceCompare>? FaceCompareResults { get; init; }
+
+    public IList<SignatureCompare>? SignatureCompareResults { get; init; }
+
+    public Demographic? Demographic { get; init; }
+
+    public IList<UploadedFile> UploadedFiles { get; init; } = [];
+
+    public IEnumerable<OverallAnalysis> OverallAnalysis { get; init; } = [];
+}
