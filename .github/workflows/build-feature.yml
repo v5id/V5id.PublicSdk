@@ -42,7 +42,7 @@ jobs:
       
     - name: Build nuget packages
       run: |
-        dotnet pack ./PublicSdk/PublicSdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5iD.Sdk"
+        dotnet pack ./PublicSdk/PublicSdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5iD.PublicSdk"
 
 
     - name: Publish NuGet Files
