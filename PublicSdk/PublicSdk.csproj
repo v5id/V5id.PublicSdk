@@ -16,6 +16,10 @@
 	<RootNamespace>V5iD.PublicSdk</RootNamespace>
 	<PackageProjectUrl>https://github.com/v5id/V5id.PublicSdk</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/v5id/V5id.PublicSdk</RepositoryUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<Authors>V5iD, Inc.</Authors>
+	<Copyright>© Copyright (c) V5iD, Inc. All right reserved. Licensed under the MIT.</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
