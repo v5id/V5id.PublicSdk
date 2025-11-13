@@ -14,9 +14,16 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
 	<AnalysisLevel>latest-all</AnalysisLevel>
 	<RootNamespace>V5iD.PublicSdk</RootNamespace>
+	<PackageProjectUrl>https://github.com/v5id/V5id.PublicSdk</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/v5id/V5id.PublicSdk</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
     <Compile Include="..\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\LICENSE" Link="LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

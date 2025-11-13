@@ -405,7 +405,7 @@ internal sealed class BarcodePdf417 : BaseBarcode
             FormattingAttribute? attribute = property.GetCustomAttribute<FormattingAttribute>();
             if (attribute != null && attribute.FormattingType != FormattingType.None)
             {
-                if (property.GetValue(formattedBarcode) is string value && value != null)
+                if (property.GetValue(formattedBarcode) is string value)
                 {
                     try
                     {
