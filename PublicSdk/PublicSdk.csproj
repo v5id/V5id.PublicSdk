@@ -18,6 +18,7 @@
 	<RepositoryUrl>https://github.com/v5id/V5id.PublicSdk</RepositoryUrl>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageIcon>icon.png</PackageIcon>  
 	<Authors>V5iD, Inc.</Authors>
 	<Copyright>© Copyright (c) V5iD, Inc. All right reserved. Licensed under the MIT.</Copyright>
   </PropertyGroup>
@@ -29,5 +30,6 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="..\LICENSE" Link="LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\icon.png" Link="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>
