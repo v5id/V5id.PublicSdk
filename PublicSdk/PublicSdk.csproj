@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Title>V5iD SDK</Title>
-      <Description>V5iD public SDK for integration</Description>
+    <Description>V5iD® Public SDK for Identity Verification Integration</Description>
     <PackageId>V5iD.$(AssemblyName)</PackageId>
     <Product>V5iD.$(AssemblyName)</Product>
     <AssemblyName>V5iD.$(MSBuildProjectName)</AssemblyName>
