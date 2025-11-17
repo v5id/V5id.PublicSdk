@@ -1,0 +1,30 @@
+// © Copyright (c) Renet Consulting, Inc. All right reserved.
+// Licensed under the MIT.
+
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using V5id.PublicSdk.Enums;
+using V5id.PublicSdk.Models;
+using V5iD.PublicSdk.Models;
+
+namespace V5iD.PublicSdk.Clients
+{
+    public interface IV5iDClient : IAsyncDisposable
+    {
+        Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
+            CancellationToken cancellationToken = default);
+
+        Task<OperationResult<Verification>> GetVerificationAsync(
+            CancellationToken cancellationToken = default);
+        
+        Task<OperationResult<NewUploadedFile>> UploadFileAsync(
+            FileType fileType,
+            string verificationUuid,
+            Stream fileStream,
+            string fileName,
+            string contentType = "application/octet-stream",
+            CancellationToken cancellationToken = default);
+    }
+}
