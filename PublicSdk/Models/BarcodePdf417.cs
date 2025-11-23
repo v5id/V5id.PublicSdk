@@ -399,6 +399,11 @@ public sealed class BarcodePdf417 : BaseBarcode
 
     public static implicit operator BarcodePdf417Formatted(BarcodePdf417 barcode)
     {
+        return ToBarcodePdf417Formatted(barcode);
+    }
+
+    public static BarcodePdf417Formatted ToBarcodePdf417Formatted(BarcodePdf417 barcode)
+    {
         BarcodePdf417Formatted formattedBarcode = DeepCopyHelper.Copy<BarcodePdf417, BarcodePdf417Formatted>(barcode);
         FormattingHelper.FormatName(formattedBarcode);
 
