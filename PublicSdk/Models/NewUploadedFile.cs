@@ -2,7 +2,7 @@
 // Licensed under the MIT.
 
 using System;
-using V5id.PublicSdk.Enums;
+using V5iD.PublicSdk.Enums;
 
 namespace V5iD.PublicSdk.Models
 {

@@ -2,8 +2,8 @@
 // Licensed under the MIT.
 
 using System.Globalization;
-using V5id.PublicSdk.Helpers;
-using V5id.PublicSdk.Models;
+using V5iD.PublicSdk.Helpers;
+using V5iD.PublicSdk.Models;
 
 namespace PublicSdk.Tests.Barcode
 {

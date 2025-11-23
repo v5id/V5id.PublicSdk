@@ -1,8 +1,8 @@
-namespace V5id.PublicSdk.Models;
+namespace V5iD.PublicSdk.Models;
 
 using System;
 using System.Collections.Generic;
-using V5id.PublicSdk.Enums;
+using V5iD.PublicSdk.Enums;
 
 public class UploadedFile
 {

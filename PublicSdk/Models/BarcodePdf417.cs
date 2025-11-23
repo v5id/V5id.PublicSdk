@@ -1,15 +1,15 @@
 using System.Runtime.CompilerServices;
 
-namespace V5id.PublicSdk.Models;
+namespace V5iD.PublicSdk.Models;
 
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using V5id.PublicSdk.Attributes;
-using V5id.PublicSdk.Enums;
-using V5id.PublicSdk.Helpers;
+using V5iD.PublicSdk.Attributes;
+using V5iD.PublicSdk.Enums;
+using V5iD.PublicSdk.Helpers;
 
 internal sealed class BarcodePdf417 : BaseBarcode
 {

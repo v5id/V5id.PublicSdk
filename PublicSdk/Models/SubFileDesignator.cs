@@ -1,4 +1,4 @@
-namespace V5id.PublicSdk.Models;
+namespace V5iD.PublicSdk.Models;
 
 using System.Text.Json.Serialization;
 

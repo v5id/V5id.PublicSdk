@@ -1,13 +1,13 @@
-namespace V5id.PublicSdk.Models;
+namespace V5iD.PublicSdk.Models;
 
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using V5id.PublicSdk.Attributes;
-using V5id.PublicSdk.Enums;
-using V5id.PublicSdk.Helpers;
+using V5iD.PublicSdk.Attributes;
+using V5iD.PublicSdk.Enums;
+using V5iD.PublicSdk.Helpers;
 
 public class BarcodePdf417Formatted
 {

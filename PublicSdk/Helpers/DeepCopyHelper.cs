@@ -1,4 +1,4 @@
-namespace V5id.PublicSdk.Helpers;
+namespace V5iD.PublicSdk.Helpers;
 
 using System;
 using System.Globalization;

@@ -5,8 +5,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using V5id.PublicSdk.Enums;
-using V5id.PublicSdk.Models;
+using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Models;
 
 namespace V5iD.PublicSdk.Clients

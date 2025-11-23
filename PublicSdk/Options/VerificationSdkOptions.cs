@@ -3,7 +3,7 @@
 
 using System;
 using System.Text.Json;
-using Environment = V5id.PublicSdk.Enums.Environment;
+using Environment = V5iD.PublicSdk.Enums.Environment;
 
 namespace V5iD.PublicSdk.Options
 {

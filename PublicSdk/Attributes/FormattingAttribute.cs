@@ -1,4 +1,4 @@
-namespace V5id.PublicSdk.Attributes;
+namespace V5iD.PublicSdk.Attributes;
 
 using System;
 using Enums;

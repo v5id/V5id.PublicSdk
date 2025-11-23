@@ -1,7 +1,7 @@
-namespace V5id.PublicSdk.Models;
+namespace V5iD.PublicSdk.Models;
 
 using System.Text.Json.Serialization;
-using V5id.PublicSdk.Enums;
+using V5iD.PublicSdk.Enums;
 
 public class IssuerIdentification
 {

@@ -1,4 +1,4 @@
-namespace V5id.PublicSdk.Enums;
+namespace V5iD.PublicSdk.Enums;
 
 internal enum FormattingType
 {

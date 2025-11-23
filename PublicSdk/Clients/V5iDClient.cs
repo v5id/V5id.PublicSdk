@@ -9,9 +9,8 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using V5id.PublicSdk.Enums;
+using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Exceptions;
-using V5id.PublicSdk.Models;
 using V5iD.PublicSdk.Models;
 using V5iD.PublicSdk.Options;
 

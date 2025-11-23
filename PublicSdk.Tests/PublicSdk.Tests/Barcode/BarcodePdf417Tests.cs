@@ -2,7 +2,7 @@
 // Licensed under the MIT.
 
 using System.Text.Json;
-using V5id.PublicSdk.Models;
+using V5iD.PublicSdk.Models;
 
 namespace PublicSdk.Tests.Barcode
 {
