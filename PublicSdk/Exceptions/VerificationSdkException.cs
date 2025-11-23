@@ -4,7 +4,7 @@
 using System;
 using System.Net;
 
-namespace V5iD.PublicSdk.Models
+namespace V5iD.PublicSdk.Exceptions
 {
     public sealed class VerificationSdkException : Exception
     {
@@ -20,6 +20,18 @@ namespace V5iD.PublicSdk.Models
         {
             StatusCode = statusCode;
             ResponseBody = responseBody;
+        }
+
+        public VerificationSdkException()
+        {
+        }
+
+        public VerificationSdkException(string message) : base(message)
+        {
+        }
+
+        public VerificationSdkException(string message, Exception innerException) : base(message, innerException)
+        {
         }
     }
 }
