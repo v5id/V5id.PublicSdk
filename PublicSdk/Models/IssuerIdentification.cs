@@ -5,12 +5,12 @@ using V5iD.PublicSdk.Enums;
 
 public class IssuerIdentification
 {
-    public string Issuer {  get; internal set; } = string.Empty;
+    public string Issuer {  get; set; } = string.Empty;
  
-    public string Jurisdiction { get; internal set; } = string.Empty;
+    public string Jurisdiction { get; set; } = string.Empty;
 
-    public string Abbreviation { get; internal set; } = string.Empty;
+    public string Abbreviation { get; set; } = string.Empty;
 
     [JsonConverter(typeof(JsonStringEnumConverter<CountryType>))]
-    public CountryType Country { get; internal set; } = CountryType.None;
+    public CountryType Country { get; set; } = CountryType.None;
 }

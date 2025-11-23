@@ -14,182 +14,182 @@ using V5iD.PublicSdk.Helpers;
 public sealed class BarcodePdf417 : BaseBarcode
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? SourceString { get; init; }
+    public string? SourceString { get; set; }
 
-    public char ComplianceIndicator { get; init; }
+    public char ComplianceIndicator { get; set; }
 
-    public char ElementSeparator { get; init; }
+    public char ElementSeparator { get; set; }
 
-    public char RecordSeparator { get; init; }
+    public char RecordSeparator { get; set; }
 
-    public char SegmentTerminator { get; init; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? IssuerIdentificationNumber { get; init; }
+    public char SegmentTerminator { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? AamvaVersionNumber { get; init; }
+    public string? IssuerIdentificationNumber { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionVersionNumber { get; init; }
+    public string? AamvaVersionNumber { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? NumberEntries { get; init; }
+    public string? JurisdictionVersionNumber { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? NumberEntries { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public Collection<SubFileDesignator> SubFileDesignator { get; } = [];
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FileType { get; init; }
+    public string? FileType { get; set; }
 
     [Element("DAE")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverNameSuffix { get; init; }
+    public string? DriverNameSuffix { get; set; }
 
     // can be ‘JR’, ‘SR’, ‘1ST’, ‘2ND’, ‘3RD’, ‘4TH’, ‘5TH’, ‘6TH’, ‘7TH’, ‘8TH’, ‘9TH’, ‘I’, ‘II’, ‘III’, ‘IV’, ‘V’, ‘VI’, ‘VII’, ‘VIII’ or ‘IX’
     [Element("DCU")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? NameSuffix { get; init; }
+    public string? NameSuffix { get; set; }
 
     [Element("DAF")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverNamePrefix { get; init; }
+    public string? DriverNamePrefix { get; set; }
 
     [Element("DAJ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? MailingJurisdictionCode { get; init; }
+    public string? MailingJurisdictionCode { get; set; }
 
     [Element("DAK")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? MailingPostalCode { get; init; }
+    public string? MailingPostalCode { get; set; }
 
     [Element("DAL")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ResidenceStreetAddress1 { get; init; }
+    public string? ResidenceStreetAddress1 { get; set; }
 
     [Element("DAM")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ResidenceStreetAddress2 { get; init; }
+    public string? ResidenceStreetAddress2 { get; set; }
 
     [Element("DAN")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ResidenceCity { get; init; }
+    public string? ResidenceCity { get; set; }
 
     [Element("DAO")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ResidenceJurisdictionCode { get; init; }
+    public string? ResidenceJurisdictionCode { get; set; }
 
     [Element("DAP")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ResidencePostalCode { get; init; }
+    public string? ResidencePostalCode { get; set; }
 
     [Element("DAR")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DocumentClassificationCode { get; init; }
+    public string? DocumentClassificationCode { get; set; }
 
     [Element("DAS")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DocumentRestrictionCode { get; init; }
+    public string? DocumentRestrictionCode { get; set; }
 
     [Element("DAT")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DocumentEndorsementsCode { get; init; }
+    public string? DocumentEndorsementsCode { get; set; }
 
     [Element("DAU")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? HeightInInches { get; init; }
+    public string? HeightInInches { get; set; }
 
     [Element("DAV")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? HeightInCentimeters { get; init; }
+    public string? HeightInCentimeters { get; set; }
 
     [Element("DAW")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? WeightInLbs { get; init; }
+    public string? WeightInLbs { get; set; }
 
     [Element("DAX")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? WeightInKG { get; init; }
+    public string? WeightInKG { get; set; }
 
     [Element("DAY")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? EyeColor { get; init; }
+    public string? EyeColor { get; set; }
 
     [Element("DAZ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? HairColor { get; init; }
+    public string? HairColor { get; set; }
 
     [Element("DBE")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? IssueTimestamp { get; init; }
+    public string? IssueTimestamp { get; set; }
 
     [Element("DBF")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? NumberOfDuplicates { get; init; }
+    public string? NumberOfDuplicates { get; set; }
 
     [Element("DBG")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? MedicalIndicatorCodes { get; init; }
+    public string? MedicalIndicatorCodes { get; set; }
 
     [Element("DBH")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? OrganDonor { get; init; }
+    public string? OrganDonor { get; set; }
 
     [Element("DBI")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? NonResidentIndicator { get; init; }
+    public string? NonResidentIndicator { get; set; }
 
     [Element("DBJ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? UniqueCustomerIdentifier { get; init; }
+    public string? UniqueCustomerIdentifier { get; set; }
 
     [Element("DBK")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? SocialSecurityNumber { get; init; }
+    public string? SocialSecurityNumber { get; set; }
 
     [Element("DBM")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverSocialSecurityNumber { get; init; }
+    public string? DriverSocialSecurityNumber { get; set; }
 
     [Element("DBL")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverDateOfBirth { get; init; }
+    public string? DriverDateOfBirth { get; set; }
 
     [Element("DBN")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverFullName { get; init; }
+    public string? DriverFullName { get; set; }
 
     [Element("DBP")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverFirstName { get; init; }
+    public string? DriverFirstName { get; set; }
 
     [Element("DBQ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverMiddleName { get; init; }
+    public string? DriverMiddleName { get; set; }
 
     [Element("DBO")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverLastName { get; init; }
+    public string? DriverLastName { get; set; }
 
     [Element("DBR")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverSuffix { get; init; }
+    public string? DriverSuffix { get; set; }
 
     [Element("DBS")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DriverPrefix { get; init; }
+    public string? DriverPrefix { get; set; }
 
     [Element("DCA")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionSpecificVehicleClass { get; init; }
+    public string? JurisdictionSpecificVehicleClass { get; set; }
 
     [Element("DCB")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionSpecificRestrictions { get; init; }
+    public string? JurisdictionSpecificRestrictions { get; set; }
 
     [Element("DCD")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionSpecificEndorsements { get; init; }
+    public string? JurisdictionSpecificEndorsements { get; set; }
 
     //0 = up to 31 kg (up to 70 lbs)
     //1 = 32 – 45 kg(71 – 100 lbs)
@@ -203,197 +203,197 @@ public sealed class BarcodePdf417 : BaseBarcode
     //9 = 146+ kg(321+ lbs)
     [Element("DCE")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? WeightRange { get; init; }
+    public string? WeightRange { get; set; }
 
     [Element("DCF")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? DocumentDiscriminator { get; init; }
+    public string? DocumentDiscriminator { get; set; }
 
     [Element("DCG")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? CountryTerritoryOfIssuance { get; init; }
+    public string? CountryTerritoryOfIssuance { get; set; }
 
     [Element("DCH")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FederalCommercialVehicleCodes { get; init; }
+    public string? FederalCommercialVehicleCodes { get; set; }
 
     [Element("DCI")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PlaceOfBirth { get; init; }
+    public string? PlaceOfBirth { get; set; }
 
     [Element("DCJ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? AuditInformation { get; init; }
+    public string? AuditInformation { get; set; }
 
     [Element("DCK")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? InventoryControlNumber { get; init; }
+    public string? InventoryControlNumber { get; set; }
 
     [Element("DCL")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? RaceEthnicity { get; init; }
+    public string? RaceEthnicity { get; set; }
 
     [Element("DCM")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? StandardVehicleClassification { get; init; }
+    public string? StandardVehicleClassification { get; set; }
 
     [Element("DCN")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? StandardEndorsementCode { get; init; }
+    public string? StandardEndorsementCode { get; set; }
 
     [Element("DCO")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? StandardRestrictionCode { get; init; }
+    public string? StandardRestrictionCode { get; set; }
 
     [Element("DCP")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionVehicleClassification { get; init; }
+    public string? JurisdictionVehicleClassification { get; set; }
 
     [Element("DCQ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionEndorsementCode { get; init; }
+    public string? JurisdictionEndorsementCode { get; set; }
 
     [Element("DCR")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JurisdictionRestrictionCode { get; init; }
+    public string? JurisdictionRestrictionCode { get; set; }
 
     // Compliance Type, ‘F’ = fully compliant and ‘N’ = non-compliant.
     [Element("DDA")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ComplianceType { get; init; }
+    public string? ComplianceType { get; set; }
 
     [Element("DDB")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? CardRevisionDate { get; init; }
+    public string? CardRevisionDate { get; set; }
 
     // Date on which the hazardous material endorsement granted by the document is no longer valid
     [Element("DDC")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? HazMatEndorsementExpiryDate { get; init; }
+    public string? HazMatEndorsementExpiryDate { get; set; }
 
     [Element("DDD")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? LimitedDurationDocumentIndicator { get; init; }
+    public string? LimitedDurationDocumentIndicator { get; set; }
 
     // A code that indicates whether a field has been truncated (‘T’), has not been truncated (‘N’), or unknown whether truncated (‘U’).
     [Element("DDE")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FamilyNameTruncation { get; init; }
+    public string? FamilyNameTruncation { get; set; }
 
     // A code that indicates whether a field has been truncated (‘T’), has not been truncated (‘N’), or unknown whether truncated (‘U’).
     [Element("DDF")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FirstNameTruncation { get; init; }
+    public string? FirstNameTruncation { get; set; }
 
     // A code that indicates whether a field has been truncated (‘T’), has not been truncated (‘N’), or unknown whether truncated (‘U’).
     [Element("DDG")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? MiddleNameTruncation { get; init; }
+    public string? MiddleNameTruncation { get; set; }
 
     [Element("DDH")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Under18Until { get; init; }
+    public string? Under18Until { get; set; }
 
     [Element("DDI")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Under19Until { get; init; }
+    public string? Under19Until { get; set; }
 
     [Element("DDJ")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Under21Until { get; init; }
+    public string? Under21Until { get; set; }
 
     // Indicator that the cardholder is an organ donor, can be ‘1’ or ‘0’
     [Element("DDK")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? OrganDonorIndicator { get; init; }
+    public string? OrganDonorIndicator { get; set; }
 
     [Element("PAA")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PermitClassificationCode { get; init; }
+    public string? PermitClassificationCode { get; set; }
 
     [Element("PAB")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PermitExpirationDate { get; init; }
+    public string? PermitExpirationDate { get; set; }
 
     [Element("PAC")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PermitIdentifier { get; init; }
+    public string? PermitIdentifier { get; set; }
 
     [Element("PAD")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PermitIssueDate { get; init; }
+    public string? PermitIssueDate { get; set; }
 
     [Element("PAE")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PermitRestrictionCode { get; init; }
+    public string? PermitRestrictionCode { get; set; }
 
     [Element("PAF")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? PermitEndorsementCode { get; init; }
+    public string? PermitEndorsementCode { get; set; }
 
     [Element("ZVA")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? CourtRestrictionCode { get; init; }
+    public string? CourtRestrictionCode { get; set; }
 
     // Indicator that the cardholder is a veteran, can be ‘1’ or ‘0’
     [Element("DDL")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? VeteranIndicator { get; init; }
+    public string? VeteranIndicator { get; set; }
 
     // Florida
     [Element("ZFB")]
     [StringLength(24)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaSpecialRestrictions { get; init; }
+    public string? FloridaSpecialRestrictions { get; set; }
 
     [Element("ZFC")]
     [StringLength(11)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaSafeDriverIndicator { get; init; }
+    public string? FloridaSafeDriverIndicator { get; set; }
 
     [Element("ZFD")]
     [StringLength(2)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaSexualPredator { get; init; }
+    public string? FloridaSexualPredator { get; set; }
 
     [Element("ZFE")]
     [StringLength(2)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaSexOffenderStatute { get; init; }
+    public string? FloridaSexOffenderStatute { get; set; }
 
     [Element("ZFF")]
     [StringLength(11)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaInsulinDependent { get; init; }
+    public string? FloridaInsulinDependent { get; set; }
 
     [Element("ZFG")]
     [StringLength(24)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaDevelopmentalDisability { get; init; }
+    public string? FloridaDevelopmentalDisability { get; set; }
 
     [Element("ZFH")]
     [StringLength(20)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaHearingImpaired { get; init; }
+    public string? FloridaHearingImpaired { get; set; }
 
     // (SP=Sportsman, BO=Boater, FW=Freshwater Fishing, SW = Saltwater Fishing, HT=Hunting)
     [Element("ZFI")]
     [StringLength(14)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaFishWildlifeDesignations { get; init; }
+    public string? FloridaFishWildlifeDesignations { get; set; }
 
     [Element("ZFJ")]
     [StringLength(10)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaCustomerNumber { get; init; }
+    public string? FloridaCustomerNumber { get; set; }
 
     [Element("ZFA")]
     [StringLength(8)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? FloridaReplacedDate { get; init; }
+    public string? FloridaReplacedDate { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public IssuerIdentification? IssuerIdentification { get; init; }
+    public IssuerIdentification? IssuerIdentification { get; set; }
 
     public Collection<string> Errors { get; } = [];
 

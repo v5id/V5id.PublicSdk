@@ -3,7 +3,7 @@ namespace V5iD.PublicSdk.Attributes;
 using System;
 
 [AttributeUsage(AttributeTargets.Property)]
-internal sealed class ElementAttribute(string elementName) : Attribute
+public sealed class ElementAttribute(string elementName) : Attribute
 {
-    internal string ElementName { get; } = elementName;
+    public string ElementName { get; } = elementName;
 }
