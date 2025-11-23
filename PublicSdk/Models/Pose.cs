@@ -2,9 +2,9 @@ namespace V5iD.PublicSdk.Models;
 
 public class Pose
 {
-    public double PosePitch { get; init; }
+    public double Pitch { get; init; }
 
-    public double PoseRoll { get; init; }
+    public double Roll { get; init; }
 
-    public double PoseYaw { get; init; }
+    public double Yaw { get; init; }
 }

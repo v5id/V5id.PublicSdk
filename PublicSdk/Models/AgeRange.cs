@@ -2,7 +2,7 @@ namespace V5iD.PublicSdk.Models;
 
 public class AgeRange
 {
-    public int AgeRangeHigh { get; init; }
+    public int High { get; init; }
 
-    public int AgeRangeLow { get; init; }
+    public int Low { get; init; }
 }
