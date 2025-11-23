@@ -10,7 +10,7 @@ public class Verification
 
     public string ClientId { get; init; } = string.Empty;
 
-    public VerificationStatus VerificationStatus { get; init; }
+    public VerifyStatus VerifyStatus { get; init; }
     
     public VerificationOverallStatus VerificationOverallStatus { get; init; }
     

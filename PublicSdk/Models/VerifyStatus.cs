@@ -5,7 +5,7 @@ using V5iD.PublicSdk.Enums;
 
 namespace V5iD.PublicSdk.Models
 {
-    public class VerificationStatus
+    public class VerifyStatus
     { 
         public VerificationOverallStatus OverallStatus { get; set; }
     }

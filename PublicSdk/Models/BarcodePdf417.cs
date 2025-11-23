@@ -11,7 +11,7 @@ using V5iD.PublicSdk.Attributes;
 using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Helpers;
 
-internal sealed class BarcodePdf417 : BaseBarcode
+public sealed class BarcodePdf417 : BaseBarcode
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     internal string? SourceString { get; init; }

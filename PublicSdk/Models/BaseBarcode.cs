@@ -3,7 +3,7 @@ namespace V5iD.PublicSdk.Models;
 using System.Text.Json.Serialization;
 using V5iD.PublicSdk.Attributes;
 
-internal abstract class BaseBarcode
+public abstract class BaseBarcode
 {
     [Element("DAA")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
