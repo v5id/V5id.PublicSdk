@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace V5id.PublicSdk.Models;
 
 using System;
