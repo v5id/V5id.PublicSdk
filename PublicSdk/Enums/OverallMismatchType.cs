@@ -9,5 +9,7 @@ public enum OverallMismatchType
     
     Demographic = 1,
     
-    Document = 2
+    Document = 2,
+    
+    Age = 3
 }
