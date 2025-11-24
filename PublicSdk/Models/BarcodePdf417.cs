@@ -411,34 +411,24 @@ public sealed class BarcodePdf417 : BaseBarcode
         foreach (PropertyInfo property in formattedBarcode.GetType().GetProperties())
         {
             FormattingAttribute? attribute = property.GetCustomAttribute<FormattingAttribute>();
-            if (attribute != null && attribute.FormattingType != FormattingType.None)
+            if (attribute != null && attribute.FormattingType != FormattingType.None && property.GetValue(formattedBarcode) is string value)
             {
-                if (property.GetValue(formattedBarcode) is string value)
+                try
                 {
-                    try
+                    var formattedValue = attribute.FormattingType switch
                     {
-                        string formattedValue = value;
+                        FormattingType.PostalCode => FormattingHelper.FormatCode(value, formattedBarcode.Errors),
+                        FormattingType.Gender => FormattingHelper.FormatGender(value, formattedBarcode.Errors),
+                        FormattingType.Weight => FormattingHelper.FormatWeight(value, formattedBarcode.Errors),
+                        _ => value
+                    };
 
-                        switch (attribute.FormattingType)
-                        {
-                            case FormattingType.PostalCode:
-                                formattedValue = FormattingHelper.FormatCode(value, formattedBarcode.Errors);
-                                break;
-                            case FormattingType.Gender:
-                                formattedValue = FormattingHelper.FormatGender(value, formattedBarcode.Errors);
-                                break;
-                            case FormattingType.Weight:
-                                formattedValue = FormattingHelper.FormatWeight(value, formattedBarcode.Errors);
-                                break;
-                        }
-
-                        PropertyInfo? formattedProperty = formattedBarcode.GetType().GetProperty(property.Name);
-                        formattedProperty?.SetValue(formattedBarcode, formattedValue);
-                    }
-                    catch (Exception exception)
-                    {
-                        formattedBarcode.Errors.Add($"Error formatting {property.Name}: {exception.Message}");
-                    }
+                    PropertyInfo? formattedProperty = formattedBarcode.GetType().GetProperty(property.Name);
+                    formattedProperty?.SetValue(formattedBarcode, formattedValue);
+                }
+                catch (Exception exception)
+                {
+                    formattedBarcode.Errors.Add($"Error formatting {property.Name}: {exception.Message}");
                 }
             }
         }

@@ -29,7 +29,7 @@ namespace PublicSdk.Tests.Barcode
         }
 
         [Fact]
-        public void BarcodeFormatting_ShouldInitializeObjectPropertly()
+        public void BarcodeFormatting_ShouldInitializeObjectProperly()
         {
             // Arrange
             const string jsonBarcode =
