@@ -1,4 +1,4 @@
-// © Copyright (c) Renet Consulting, Inc. All right reserved.
+// © Copyright (c) V5iD, Inc. All right reserved.
 // Licensed under the MIT.
 
 using System.Text.Json.Serialization;
