@@ -20,7 +20,7 @@
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	<PackageIcon>icon.png</PackageIcon>  
 	<Authors>V5iD, Inc.</Authors>
-	<Copyright>© Copyright (c) V5iD, Inc. All right reserved. Licensed under the MIT.</Copyright>
+	<Copyright>© Copyright (c) V5iD, Inc. All rights reserved. Licensed under the MIT.</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />

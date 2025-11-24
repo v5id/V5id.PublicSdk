@@ -112,11 +112,11 @@ internal static class FormattingHelper
     }
 
     /// <summary>
-    /// 
+    /// Splits a full name string into a first or given name and a middle name, based on the provided values.
     /// </summary>
-    /// <param name="nameString">The name string to be split into components.</param>
-    /// <param name="middleName">The middle name</param>
-    /// <returns>First/Given name and the middle name</returns>
+    /// <param name="nameString">The full name string to be split into components.</param>
+    /// <param name="middleName">The existing middle name, if any, that will be used or replaced during splitting.</param>
+    /// <returns>A tuple containing the first or given name and the middle name derived from the input.</returns>
     private static (string? first, string? middle) SplitName(string? nameString, string? middleName)
     {
         if (string.IsNullOrEmpty(middleName) && !string.IsNullOrWhiteSpace(nameString))
