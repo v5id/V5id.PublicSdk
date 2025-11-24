@@ -27,10 +27,10 @@ namespace V5iD.PublicSdk.Options
 
         public bool ThrowOnErrorStatusCode { get; set; } = true;
 
-        /// <summary>Кастомные Json-настройки (если нужно).</summary>
+        /// <summary>Custom JSON settings (if needed).</summary>
         public JsonSerializerOptions? JsonSerializerOptions { get; set; }
 
-        /// <summary>Таймаут HttpClient, если создаётся внутри SDK.</summary>
+        /// <summary>HttpClient timeout, if created inside the SDK.</summary>
         public TimeSpan HttpTimeout { get; set; } = TimeSpan.FromSeconds(100);
     }
 }
