@@ -5,10 +5,10 @@ namespace V5iD.PublicSdk.Options
 {
     internal static class CustomerApiEndpoints
     {
-        internal static string Token { get; set; } = "verify/token";
+        internal const string Token = "verify/token";
 
-        internal static string CreateVerification { get; set; } = "verify";
+        internal const string CreateVerification = "verify";
 
-        internal static string GetVerification { get; set; } = "verify";
+        internal const string GetVerification = "verify";
     }
 }

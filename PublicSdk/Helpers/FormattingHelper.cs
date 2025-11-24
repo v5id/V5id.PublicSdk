@@ -129,5 +129,5 @@ internal static class FormattingHelper
         }
 
         return (first: nameString, middle: middleName);
-    } 
+    }
 }
