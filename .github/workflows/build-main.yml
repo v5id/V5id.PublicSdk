@@ -44,7 +44,6 @@ jobs:
         run: |
           dotnet pack ./PublicSdk/PublicSdk.csproj -p:PackageVersion=${{ env.VERSION_NUMBER_WITH_OFFSET }} --no-build --configuration Release --output "./nuget/V5iD.PublicSdk"
 
-
       - name: Publish NuGet Files
         run: |
           dotnet nuget push "./nuget/V5iD.PublicSdk/*.nupkg" --source "nuget.org" --api-key ${{ secrets.ACTION_PACKAGE_API_KEY }}

@@ -101,9 +101,7 @@ internal static class FormattingHelper
     /// This method checks if the middle name is already set. If it is not, it attempts to split the first name or given name into individual components.
     /// If either the first name or given name contains two parts, the second part is assigned as the middle name. If it contains three parts,
     /// the first part is assigned as the first name, the second as the given name, and the third as the middle name. 
-    /// If both first and given names are empty, an error message is added to the errors list.
     /// </remarks>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="barcode"/> is null.</exception>
     public static void FormatName(BarcodePdf417Formatted barcode)
     {
         (barcode.FirstName, barcode.MiddleName) = SplitName(barcode.FirstName, barcode.MiddleName);
@@ -130,6 +128,6 @@ internal static class FormattingHelper
             }
         }
 
-        return (first: nameString, middle: middleName); 
+        return (first: nameString, middle: middleName);
     } 
 }

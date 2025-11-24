@@ -10,17 +10,15 @@ namespace V5iD.PublicSdk.Options
     public class VerificationSdkOptions
     {
         /// <summary>
-        /// In case of using custom API base url.
+        /// In case of using custom Customer API base url.
         /// </summary>
         public string? CustomerApiBaseUrl { get; set; }
 
         /// <summary>
-        /// In case of using custom API base url.
+        /// In case of using custom Uploader API base url.
         /// </summary>
         public string? UploaderApiBaseUrl { get; set; }
         
-        public Environment Environment { get; set; } = Environment.Production;
-
         public required string IntegrationUuid { get; set; }
 
         public required string IntegrationSecret { get; set; }

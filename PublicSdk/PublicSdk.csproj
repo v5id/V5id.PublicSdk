@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <Title>V5iD SDK</Title>
-    <Description>V5iD® Public SDK for Identity Verification Integration</Description>
-    <PackageId>V5iD.$(AssemblyName)</PackageId>
-    <Product>V5iD.$(AssemblyName)</Product>
-    <AssemblyName>V5iD.$(MSBuildProjectName)</AssemblyName>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-	<AnalysisLevel>latest-all</AnalysisLevel>
-	<RootNamespace>V5iD.PublicSdk</RootNamespace>
-	<PackageProjectUrl>https://github.com/v5id/V5id.PublicSdk</PackageProjectUrl>
-	<RepositoryUrl>https://github.com/v5id/V5id.PublicSdk</RepositoryUrl>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageIcon>icon.png</PackageIcon>  
-	<Authors>V5iD, Inc.</Authors>
-	<Copyright>© Copyright (c) V5iD, Inc. All rights reserved. Licensed under the MIT.</Copyright>
+      <TargetFramework>net8.0</TargetFramework>
+      <Nullable>enable</Nullable>
+      <Title>V5iD SDK</Title>
+      <Description>V5iD® Public SDK for Identity Verification Integration</Description>
+      <PackageId>V5iD.$(AssemblyName)</PackageId>
+      <Product>V5iD.$(AssemblyName)</Product>
+      <AssemblyName>V5iD.$(MSBuildProjectName)</AssemblyName>
+      <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+      <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+      <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+      <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+      <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+      <AnalysisLevel>latest-all</AnalysisLevel>
+      <RootNamespace>V5iD.PublicSdk</RootNamespace>
+      <PackageProjectUrl>https://github.com/v5id/V5id.PublicSdk</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/v5id/V5id.PublicSdk</RepositoryUrl>
+      <PackageReadmeFile>README.md</PackageReadmeFile>
+      <PackageLicenseFile>LICENSE</PackageLicenseFile>
+      <PackageIcon>icon.png</PackageIcon>
+      <Authors>V5iD, Inc.</Authors>
+      <Copyright>© Copyright (c) V5iD, Inc. All rights reserved. Licensed under the MIT.</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
