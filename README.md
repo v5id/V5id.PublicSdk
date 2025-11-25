@@ -13,15 +13,6 @@ https://www.nuget.org/packages/V5iD.PublicSdk
 ### Package Manager Console
 ```Install-Package V5iD.PublicSdk```
 
-### NuGet Package Reference
-
-Add the following to your .csproj file:
-```
-<ItemGroup>
-  <PackageReference Include="V5iD.PublicSdk"/>
-</ItemGroup>
-```
-
 After installation, import the namespace in your code:
 
 ```using V5iD.PublicSdk;```
