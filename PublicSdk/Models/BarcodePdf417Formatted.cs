@@ -29,7 +29,6 @@ public class BarcodePdf417Formatted
         catch (Exception exception)
         {
             Errors.Add(exception.Message);
-            throw new FormatException("Formatting error", exception);
         }
     }
 

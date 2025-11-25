@@ -71,8 +71,8 @@ internal static class DeepCopyHelper
     /// </remarks>
     internal static void CopyProperties(object source, object destination)
     {
-        if (source == null || destination == null)
-            throw new ArgumentNullException(source == null ? nameof(source) : nameof(destination));
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(destination);
 
         Type sourceType = source.GetType();
         Type destinationType = destination.GetType();

@@ -1,4 +1,4 @@
-name: Sdk - Feature
+name: Sdk - Main
 
 on:
   push:

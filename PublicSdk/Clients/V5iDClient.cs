@@ -26,7 +26,7 @@ namespace V5iD.PublicSdk.Clients
         private readonly bool _ownsUploaderClient;
 
         private static readonly JsonSerializerOptions DefaultJsonOptions = new(JsonSerializerDefaults.Web);
-        private bool _disposed;
+        private int _disposed;
 
         private readonly SemaphoreSlim _tokenLock = new(1, 1);
         private TokenResponse? _cachedToken;
@@ -67,18 +67,18 @@ namespace V5iD.PublicSdk.Clients
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
-            _disposed = true;
+            if (Interlocked.Exchange(ref _disposed, 1) != 0)
+                return;
 
             if (disposing)
             {
-                _tokenLock.Dispose();
+                _tokenLock?.Dispose();
 
                 if (_ownsCustomerClient)
-                    _customerClient.Dispose();
+                    _customerClient?.Dispose();
 
                 if (_ownsUploaderClient)
-                    _uploaderClient.Dispose();
+                    _uploaderClient?.Dispose();
             }
         }
 
@@ -294,7 +294,7 @@ namespace V5iD.PublicSdk.Clients
             };
 
             using var content = new MultipartFormDataContent();
-            using var fileContent = new StreamContent(fileStream);
+            using var fileContent = new StreamContent(fileStream); // disposed => stream disposed
             fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
             content.Add(fileContent, fieldName, fileName);
 
