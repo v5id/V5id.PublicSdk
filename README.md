@@ -8,17 +8,17 @@ NuGet Package:
 https://www.nuget.org/packages/V5iD.PublicSdk
 
 ### .NET CLI
-```dotnet add package V5iD.PublicSdk --version 1.0.0-beta.15```
+```dotnet add package V5iD.PublicSdk```
 
 ### Package Manager Console
-```Install-Package V5iD.PublicSdk -Version 1.0.0-beta.15```
+```Install-Package V5iD.PublicSdk```
 
 ### NuGet Package Reference
 
 Add the following to your .csproj file:
 ```
 <ItemGroup>
-  <PackageReference Include="V5iD.PublicSdk" Version="1.0.0-beta.15" />
+  <PackageReference Include="V5iD.PublicSdk"/>
 </ItemGroup>
 ```
 
