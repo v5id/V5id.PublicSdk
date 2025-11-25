@@ -18,12 +18,12 @@ namespace V5iD.PublicSdk.Clients
         Task<OperationResult<Verification>> GetVerificationAsync(
             CancellationToken cancellationToken = default);
         
-        Task<OperationResult<NewUploadedFile>> UploadFileAsync(
-            FileType fileType,
+        Task<OperationResult<NewUploadedFile>> UploadFileAsync(FileType fileType,
             string verificationUuid,
             Stream fileStream,
             string fileName,
             string contentType = "application/octet-stream",
+            bool leaveOpen = false,
             CancellationToken cancellationToken = default);
     }
 }

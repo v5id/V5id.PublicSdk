@@ -267,6 +267,7 @@ namespace V5iD.PublicSdk.Clients
             Stream fileStream,
             string fileName,
             string contentType = "application/octet-stream",
+            bool leaveOpen = false,
             CancellationToken cancellationToken = default)
         {
             ArgumentNullException.ThrowIfNull(fileStream);
@@ -293,8 +294,14 @@ namespace V5iD.PublicSdk.Clients
                 _ => "document"
             };
 
+            if (fileStream.CanSeek) fileStream.Position = 0;
+
+            Stream streamForContent = leaveOpen
+                ? new NonDisposingStream(fileStream)
+                : fileStream;
+
             using var content = new MultipartFormDataContent();
-            using var fileContent = new StreamContent(fileStream); // disposed => stream disposed
+            using var fileContent = new StreamContent(streamForContent);
             fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
             content.Add(fileContent, fieldName, fileName);
 
@@ -397,6 +404,31 @@ namespace V5iD.PublicSdk.Clients
             }
 
             return OperationResult<T>.Success(value, response.StatusCode);
+        }
+        
+        private sealed class NonDisposingStream : Stream
+        {
+#pragma warning disable CA2213 Stream shpuld not be disposed. Ownrship belongs to the caller.
+            private readonly Stream _inner;
+#pragma warning restore CA2213
+            public NonDisposingStream(Stream inner) => _inner = inner;
+
+            public override bool CanRead => _inner.CanRead;
+            public override bool CanSeek => _inner.CanSeek;
+            public override bool CanWrite => _inner.CanWrite;
+            public override long Length => _inner.Length;
+            public override long Position { get => _inner.Position; set => _inner.Position = value; }
+            public override void Flush() => _inner.Flush();
+            public override int Read(byte[] buffer, int offset, int count) => _inner.Read(buffer, offset, count);
+            public override long Seek(long offset, SeekOrigin origin) => _inner.Seek(offset, origin);
+            public override void SetLength(long value) => _inner.SetLength(value);
+            public override void Write(byte[] buffer, int offset, int count) => _inner.Write(buffer, offset, count);
+
+#pragma warning disable CA2215 Stream shpuld not be disposed. Ownrship belongs to the caller.
+            protected override void Dispose(bool disposing) { /* leave inner open */ }
+            
+            public override ValueTask DisposeAsync() => ValueTask.CompletedTask;
+#pragma warning restore CA2215
         }
 
         #endregion
