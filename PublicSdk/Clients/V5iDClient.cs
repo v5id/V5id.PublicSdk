@@ -280,9 +280,6 @@ namespace V5iD.PublicSdk.Clients
                 _ => throw new ArgumentOutOfRangeException(nameof(fileType), fileType, "Unknown file type.")
             };
 
-            if (string.IsNullOrWhiteSpace(pathTemplate))
-                throw new InvalidOperationException($"Path template for {fileType} is not configured.");
-
             var path = pathTemplate.Replace(
                 "{verificationUuid}",
                 Uri.EscapeDataString(verificationUuid),
