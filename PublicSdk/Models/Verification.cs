@@ -17,7 +17,7 @@ public class Verification
     
     public VerificationOverallStatus VerificationOverallStatus { get; init; }
     
-    public int? Age { get; set;}
+    public int? Age { get; set; }
     
     public DateTime CreatedDate { get; init; }
     
