@@ -405,7 +405,7 @@ namespace V5iD.PublicSdk.Clients
         
         private sealed class NonDisposingStream : Stream
         {
-#pragma warning disable CA2213 Stream shpuld not be disposed. Ownrship belongs to the caller.
+#pragma warning disable CA2213 Stream should not be disposed. Ownrship belongs to the caller.
             private readonly Stream _inner;
 #pragma warning restore CA2213
             public NonDisposingStream(Stream inner) => _inner = inner;
@@ -421,7 +421,7 @@ namespace V5iD.PublicSdk.Clients
             public override void SetLength(long value) => _inner.SetLength(value);
             public override void Write(byte[] buffer, int offset, int count) => _inner.Write(buffer, offset, count);
 
-#pragma warning disable CA2215 Stream shpuld not be disposed. Ownrship belongs to the caller.
+#pragma warning disable CA2215 Stream should not be disposed. Ownrship belongs to the caller.
             protected override void Dispose(bool disposing) { /* leave inner open */ }
             
             public override ValueTask DisposeAsync() => ValueTask.CompletedTask;
