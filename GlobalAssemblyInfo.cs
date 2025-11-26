@@ -1,0 +1,14 @@
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+[assembly: AssemblyCompany("V5iD, Inc.")]
+[assembly: AssemblyTrademark("™ V5iD.")]
+[assembly: AssemblyCopyright("© V5iD, Inc. All rights reserved.")]
+
+// This shows up as Product Version in Windows Explorer
+// We make this the same for all files in a particular product version. And increment it globally for all projects.
+// We then use this as the Product Version in installers as well (for example built using Wix).
+[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyFileVersion("1.0.0")]
+[assembly: InternalsVisibleTo("PublicSdk.Tests")]
