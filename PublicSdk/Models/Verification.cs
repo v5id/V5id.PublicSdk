@@ -20,7 +20,9 @@ public class Verification
     public int? Age { get; init; }
     
     public DateTime CreatedDate { get; init; }
-    
+
+    public DateTime ModifiedDate { get; init; }
+
     public bool SupportRequestSend { get; init; }
 
     public IList<FaceCompare>? FaceCompareResults { get; init; }
