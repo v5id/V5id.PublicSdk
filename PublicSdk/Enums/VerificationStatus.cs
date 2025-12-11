@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 public enum VerificationStatus
 {
     None = 0,
-    Created = 1,
+    NotStarted = 1,
     Active = 2,
     Completed = 3,
     Inactive = 4,
