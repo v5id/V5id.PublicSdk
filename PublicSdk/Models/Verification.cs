@@ -19,9 +19,9 @@ public class Verification
     
     public int? Age { get; init; }
     
-    public DateTime CreatedDate { get; init; }
+    public DateTimeOffset CreatedDate { get; init; }
 
-    public DateTime ModifiedDate { get; init; }
+    public DateTimeOffset ModifiedDate { get; init; }
 
     public bool SupportRequestSend { get; init; }
 
