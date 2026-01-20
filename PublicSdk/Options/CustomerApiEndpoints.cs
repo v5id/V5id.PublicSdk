@@ -8,6 +8,8 @@ namespace V5iD.PublicSdk.Options
         internal const string Token = "verify/token";
 
         internal const string CreateVerification = "verify";
+        
+        internal const string CreateWebVerification = "verify/web";
 
         internal const string GetVerification = "verify";
     }

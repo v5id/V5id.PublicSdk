@@ -12,6 +12,8 @@ public class Verification
     public string VerificationUuid { get; init; } = string.Empty;
 
     public string ClientId { get; init; } = string.Empty;
+    
+    public string? ReferenceId { get; init; }
 
     public VerificationStatus VerificationStatus { get; init; }
     

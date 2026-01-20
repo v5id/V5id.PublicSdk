@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,6 +11,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.WebUtilities;
 using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Exceptions;
 using V5iD.PublicSdk.Models;
@@ -188,37 +190,40 @@ namespace V5iD.PublicSdk.Clients
         public async Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
             CancellationToken cancellationToken = default)
         {
-            using var request = new HttpRequestMessage(
-                HttpMethod.Post,
-                CustomerApiEndpoints.CreateVerification);
+            return await CreateVerification(cancellationToken).ConfigureAwait(false);
+        }
 
-            var tokenOperation = await EnsureTokenAsync(cancellationToken).ConfigureAwait(false);
+        public async Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
+            string? externalId = null,
+            CancellationToken cancellationToken = default)
+        {
+            var verificationResult = await CreateVerification(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("externalId", externalId)).ConfigureAwait(false);
 
-            if (!tokenOperation.IsSuccess)
+            if (!verificationResult.IsSuccess || verificationResult.Value is null)
             {
-                if (_options.ThrowOnErrorStatusCode)
+                return new OperationResult<CreatedWebVerification>
                 {
-                    throw new VerificationSdkException(
-                        "Unable to authenticate user",
-                        tokenOperation.StatusCode);
-                }
-
-                return OperationResult<CreatedVerification>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
+                    IsSuccess = false,
+                    StatusCode = verificationResult.StatusCode,
+                    ErrorMessage = verificationResult.ErrorMessage,
+                    RawResponseBody = verificationResult.RawResponseBody,
+                };
             }
 
-            request.Headers.Authorization =
-                new AuthenticationHeaderValue("Bearer", tokenOperation.Value!.AccessToken);
-
-            using var response = await _customerClient.SendAsync(
-                request,
-                HttpCompletionOption.ResponseHeadersRead,
-                cancellationToken).ConfigureAwait(false);
-
-            return await HandleResponseAsync<CreatedVerification>(
-                response,
-                "Failed to create verification",
-                cancellationToken).ConfigureAwait(false);
+            return new OperationResult<CreatedWebVerification>
+            {
+                IsSuccess = true,
+                StatusCode = HttpStatusCode.Created,
+                ErrorMessage = null,
+                RawResponseBody = null,
+                Value = new CreatedWebVerification
+                {
+                    VerificationUuid = verificationResult.Value.VerificationUuid,
+                    IsWaitForStartVerification = verificationResult.Value.IsWaitForStartVerification,
+                    IntegrationScopes = verificationResult.Value.IntegrationScopes,
+                    RedirectUrl = $"{_options.VerifyBaseUrl}/get-started?verificationId={verificationResult.Value.VerificationUuid}"
+                }
+            };
         }
 
         public async Task<OperationResult<Verification>> GetVerificationAsync(
@@ -339,6 +344,49 @@ namespace V5iD.PublicSdk.Clients
         #endregion
 
         #region Internal helpers
+        
+        private async Task<OperationResult<CreatedVerification>> CreateVerification(CancellationToken cancellationToken, string requestUri = CustomerApiEndpoints.CreateVerification, params (string Name, string? Value)[] queryParams)
+        {
+            var finalUri = (queryParams is { Length: > 0 })
+                ? QueryHelpers.AddQueryString(
+                    requestUri,
+                    queryParams
+                        .Where(p => !string.IsNullOrWhiteSpace(p.Name))
+                        .ToDictionary(p => p.Name, p => p.Value ?? string.Empty)!)
+                : requestUri;
+            
+            using var request = new HttpRequestMessage(
+                HttpMethod.Post,
+                finalUri);
+
+            var tokenOperation = await EnsureTokenAsync(cancellationToken).ConfigureAwait(false);
+
+            if (!tokenOperation.IsSuccess)
+            {
+                if (_options.ThrowOnErrorStatusCode)
+                {
+                    throw new VerificationSdkException(
+                        "Unable to authenticate user",
+                        tokenOperation.StatusCode);
+                }
+
+                return OperationResult<CreatedVerification>.Failure(
+                    tokenOperation.StatusCode, "Unable to authenticate user");
+            }
+
+            request.Headers.Authorization =
+                new AuthenticationHeaderValue("Bearer", tokenOperation.Value!.AccessToken);
+
+            using var response = await _customerClient.SendAsync(
+                request,
+                HttpCompletionOption.ResponseHeadersRead,
+                cancellationToken).ConfigureAwait(false);
+
+            return await HandleResponseAsync<CreatedVerification>(
+                response,
+                "Failed to create verification",
+                cancellationToken).ConfigureAwait(false);
+        }
 
         private async Task<OperationResult<T>> HandleResponseAsync<T>(
             HttpResponseMessage response,
