@@ -347,13 +347,20 @@ namespace V5iD.PublicSdk.Clients
         
         private async Task<OperationResult<CreatedVerification>> CreateVerification(CancellationToken cancellationToken, string requestUri = CustomerApiEndpoints.CreateVerification, params (string Name, string? Value)[] queryParams)
         {
-            var finalUri = (queryParams is { Length: > 0 })
-                ? QueryHelpers.AddQueryString(
-                    requestUri,
-                    queryParams
-                        .Where(p => !string.IsNullOrWhiteSpace(p.Name))
-                        .ToDictionary(p => p.Name, p => p.Value ?? string.Empty)!)
-                : requestUri;
+            var finalUri = requestUri;
+
+            if (queryParams.Length != 0)
+            {
+                var filteredParams = queryParams.Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value));
+                if (!filteredParams.Any())
+                {
+                    finalUri = QueryHelpers.AddQueryString(
+                            requestUri,
+                            queryParams
+                                .Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value))
+                                .ToDictionary(p => p.Name, p => p.Value ?? string.Empty)!);
+                }
+            }
             
             using var request = new HttpRequestMessage(
                 HttpMethod.Post,
