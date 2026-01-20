@@ -21,6 +21,8 @@ public class Verification
     
     public int? Age { get; init; }
     
+    public float? LivenessScore { get; init; }
+    
     public DateTimeOffset CreatedDate { get; init; }
 
     public DateTimeOffset ModifiedDate { get; init; }

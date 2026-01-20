@@ -194,10 +194,10 @@ namespace V5iD.PublicSdk.Clients
         }
 
         public async Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
-            string? externalId = null,
+            string? referenceId = null,
             CancellationToken cancellationToken = default)
         {
-            var verificationResult = await CreateVerification(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("externalId", externalId)).ConfigureAwait(false);
+            var verificationResult = await CreateVerification(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("referenceId", referenceId)).ConfigureAwait(false);
 
             if (!verificationResult.IsSuccess || verificationResult.Value is null)
             {
