@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using V5iD.PublicSdk.Enums;
 
 namespace V5iD.PublicSdk.Models
 {
