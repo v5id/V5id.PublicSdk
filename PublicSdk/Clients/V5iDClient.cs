@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Exceptions;
 using V5iD.PublicSdk.Models;
@@ -38,32 +39,32 @@ namespace V5iD.PublicSdk.Clients
         private static readonly TimeSpan ClockSkew = TimeSpan.FromSeconds(5);
 
         public V5iDClient(
-            VerificationSdkOptions options,
+            IOptions<VerificationSdkOptions> options,
             HttpClient? customerClient = null,
             HttpClient? uploaderClient = null)
         {
-            _options = options ?? throw new ArgumentNullException(nameof(options));
+            _options = options.Value ?? throw new ArgumentNullException(nameof(options));
 
-            if (string.IsNullOrWhiteSpace(options.CustomerApiBaseUrl))
+            if (string.IsNullOrWhiteSpace(_options.CustomerApiBaseUrl))
                 throw new ArgumentException("CustomerApiBaseUrl must be set", nameof(options));
 
-            if (string.IsNullOrWhiteSpace(options.UploaderApiBaseUrl))
+            if (string.IsNullOrWhiteSpace(_options.UploaderApiBaseUrl))
                 throw new ArgumentException("UploaderApiBaseUrl must be set", nameof(options));
 
             _customerClient = customerClient ?? new HttpClient();
             if (customerClient is null)
             {
                 _ownsCustomerClient = true;
-                _customerClient.BaseAddress = new Uri(options.CustomerApiBaseUrl, UriKind.Absolute);
-                _customerClient.Timeout = options.HttpTimeout;
+                _customerClient.BaseAddress = new Uri(_options.CustomerApiBaseUrl, UriKind.Absolute);
+                _customerClient.Timeout = _options.HttpTimeout;
             }
 
             _uploaderClient = uploaderClient ?? new HttpClient();
             if (uploaderClient is null)
             {
                 _ownsUploaderClient = true;
-                _uploaderClient.BaseAddress = new Uri(options.UploaderApiBaseUrl, UriKind.Absolute);
-                _uploaderClient.Timeout = options.HttpTimeout;
+                _uploaderClient.BaseAddress = new Uri(_options.UploaderApiBaseUrl, UriKind.Absolute);
+                _uploaderClient.Timeout = _options.HttpTimeout;
             }
         }
 
