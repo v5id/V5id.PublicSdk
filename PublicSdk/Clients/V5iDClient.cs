@@ -246,7 +246,7 @@ namespace V5iD.PublicSdk.Clients
                 }
 
                 return OperationResult<Verification>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
+                    tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
             }
 
             request.Headers.Authorization =
@@ -325,7 +325,7 @@ namespace V5iD.PublicSdk.Clients
                 }
 
                 return OperationResult<NewUploadedFile>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
+                    tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
             }
 
             request.Headers.Authorization =
@@ -379,7 +379,7 @@ namespace V5iD.PublicSdk.Clients
                 }
 
                 return OperationResult<CreatedVerification>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
+                    tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
             }
 
             request.Headers.Authorization =
