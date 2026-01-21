@@ -43,7 +43,13 @@ namespace V5iD.PublicSdk.Clients
             HttpClient? customerClient = null,
             HttpClient? uploaderClient = null)
         {
+            ArgumentNullException.ThrowIfNull(options);
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
+
+            if (string.IsNullOrWhiteSpace(_options.IntegrationUuid) || string.IsNullOrWhiteSpace(_options.IntegrationSecret))
+            {
+                throw new ArgumentException("IntegrationUuid and IntegrationSecret must be set", nameof(options));
+            }
 
             if (string.IsNullOrWhiteSpace(_options.CustomerApiBaseUrl))
                 throw new ArgumentException("CustomerApiBaseUrl must be set", nameof(options));
