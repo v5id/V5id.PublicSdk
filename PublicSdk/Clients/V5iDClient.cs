@@ -194,43 +194,17 @@ namespace V5iD.PublicSdk.Clients
             }
         }
 
-        public async Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
+        public Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
             CancellationToken cancellationToken = default)
         {
-            return await CreateVerification(cancellationToken).ConfigureAwait(false);
+            return CreateVerification<CreatedVerification>(cancellationToken);
         }
 
-        public async Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
+        public Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
             string? referenceId = null,
             CancellationToken cancellationToken = default)
         {
-            var verificationResult = await CreateVerification(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("referenceId", referenceId)).ConfigureAwait(false);
-
-            if (!verificationResult.IsSuccess || verificationResult.Value is null)
-            {
-                return new OperationResult<CreatedWebVerification>
-                {
-                    IsSuccess = false,
-                    StatusCode = verificationResult.StatusCode,
-                    ErrorMessage = verificationResult.ErrorMessage,
-                    RawResponseBody = verificationResult.RawResponseBody,
-                };
-            }
-
-            return new OperationResult<CreatedWebVerification>
-            {
-                IsSuccess = true,
-                StatusCode = HttpStatusCode.Created,
-                ErrorMessage = null,
-                RawResponseBody = null,
-                Value = new CreatedWebVerification
-                {
-                    VerificationUuid = verificationResult.Value.VerificationUuid,
-                    IsWaitForStartVerification = verificationResult.Value.IsWaitForStartVerification,
-                    IntegrationScopes = verificationResult.Value.IntegrationScopes,
-                    RedirectUrl = $"{_options.VerifyBaseUrl}/get-started?verificationId={verificationResult.Value.VerificationUuid}"
-                }
-            };
+            return CreateVerification<CreatedWebVerification>(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("referenceId", referenceId));
         }
 
         public async Task<OperationResult<Verification>> GetVerificationAsync(
@@ -352,7 +326,8 @@ namespace V5iD.PublicSdk.Clients
 
         #region Internal helpers
         
-        private async Task<OperationResult<CreatedVerification>> CreateVerification(CancellationToken cancellationToken, string requestUri = CustomerApiEndpoints.CreateVerification, params (string Name, string? Value)[] queryParams)
+        private async Task<OperationResult<T>> CreateVerification<T>(CancellationToken cancellationToken, string requestUri = CustomerApiEndpoints.CreateVerification, params (string Name, string? Value)[] queryParams)
+        where T: CreatedVerification
         {
             var finalUri = requestUri;
 
@@ -384,7 +359,7 @@ namespace V5iD.PublicSdk.Clients
                         tokenOperation.StatusCode);
                 }
 
-                return OperationResult<CreatedVerification>.Failure(
+                return OperationResult<T>.Failure(
                     tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
             }
 
@@ -396,7 +371,7 @@ namespace V5iD.PublicSdk.Clients
                 HttpCompletionOption.ResponseHeadersRead,
                 cancellationToken).ConfigureAwait(false);
 
-            return await HandleResponseAsync<CreatedVerification>(
+            return await HandleResponseAsync<T>(
                 response,
                 "Failed to create verification",
                 cancellationToken).ConfigureAwait(false);
@@ -462,7 +437,7 @@ namespace V5iD.PublicSdk.Clients
                     body);
             }
 
-            return OperationResult<T>.Success(value, response.StatusCode);
+            return OperationResult<T>.Success(value, response.StatusCode, rawResponseBody: body);
         }
         
         private sealed class NonDisposingStream : Stream
