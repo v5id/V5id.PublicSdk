@@ -19,8 +19,6 @@ namespace V5iD.PublicSdk.Options
         /// </summary>
         public string? UploaderApiBaseUrl { get; set; }
         
-        public string? VerifyBaseUrl { get; set; }
-        
         public required string IntegrationUuid { get; set; }
 
         public required string IntegrationSecret { get; set; }
