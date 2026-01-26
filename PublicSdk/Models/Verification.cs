@@ -23,6 +23,8 @@ public class Verification
     
     public float? LivenessScore { get; init; }
     
+    public LivenessStatus? LivenessStatus { get; init; }
+    
     public DateTimeOffset CreatedDate { get; init; }
 
     public DateTimeOffset ModifiedDate { get; init; }
