@@ -26,6 +26,8 @@ public class Verification
     public DateTimeOffset CreatedDate { get; init; }
 
     public DateTimeOffset ModifiedDate { get; init; }
+    
+    public DateTimeOffset AgreementAcceptedAt { get; init; }
 
     public bool SupportRequestSend { get; init; }
 
