@@ -5,15 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace V5iD.PublicSdk.Models
 {
-    internal class TokenRequest
+    public class TokenRequest
     {
-        [JsonPropertyName("client_id")]
-        internal string ClientId { get; set; } = string.Empty;
+        public string ClientId { get; set; } = string.Empty;
 
-        [JsonPropertyName("client_secret")]
-        internal string ClientSecret { get; set; } = string.Empty;
+        public string ClientSecret { get; set; } = string.Empty;
 
-        [JsonPropertyName("grant_type")]
-        internal string GrantType { get; set; } = string.Empty;
+        public string GrantType { get; set; } = string.Empty;
     }
 }

@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,6 +11,8 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Exceptions;
 using V5iD.PublicSdk.Models;
@@ -36,32 +39,38 @@ namespace V5iD.PublicSdk.Clients
         private static readonly TimeSpan ClockSkew = TimeSpan.FromSeconds(5);
 
         public V5iDClient(
-            VerificationSdkOptions options,
+            IOptions<VerificationSdkOptions> options,
             HttpClient? customerClient = null,
             HttpClient? uploaderClient = null)
         {
-            _options = options ?? throw new ArgumentNullException(nameof(options));
+            ArgumentNullException.ThrowIfNull(options);
+            _options = options.Value ?? throw new ArgumentNullException(nameof(options));
 
-            if (string.IsNullOrWhiteSpace(options.CustomerApiBaseUrl))
+            if (string.IsNullOrWhiteSpace(_options.IntegrationUuid) || string.IsNullOrWhiteSpace(_options.IntegrationSecret))
+            {
+                throw new ArgumentException("IntegrationUuid and IntegrationSecret must be set", nameof(options));
+            }
+
+            if (string.IsNullOrWhiteSpace(_options.CustomerApiBaseUrl))
                 throw new ArgumentException("CustomerApiBaseUrl must be set", nameof(options));
 
-            if (string.IsNullOrWhiteSpace(options.UploaderApiBaseUrl))
+            if (string.IsNullOrWhiteSpace(_options.UploaderApiBaseUrl))
                 throw new ArgumentException("UploaderApiBaseUrl must be set", nameof(options));
 
             _customerClient = customerClient ?? new HttpClient();
             if (customerClient is null)
             {
                 _ownsCustomerClient = true;
-                _customerClient.BaseAddress = new Uri(options.CustomerApiBaseUrl, UriKind.Absolute);
-                _customerClient.Timeout = options.HttpTimeout;
+                _customerClient.BaseAddress = new Uri(_options.CustomerApiBaseUrl, UriKind.Absolute);
+                _customerClient.Timeout = _options.HttpTimeout;
             }
 
             _uploaderClient = uploaderClient ?? new HttpClient();
             if (uploaderClient is null)
             {
                 _ownsUploaderClient = true;
-                _uploaderClient.BaseAddress = new Uri(options.UploaderApiBaseUrl, UriKind.Absolute);
-                _uploaderClient.Timeout = options.HttpTimeout;
+                _uploaderClient.BaseAddress = new Uri(_options.UploaderApiBaseUrl, UriKind.Absolute);
+                _uploaderClient.Timeout = _options.HttpTimeout;
             }
         }
 
@@ -185,40 +194,17 @@ namespace V5iD.PublicSdk.Clients
             }
         }
 
-        public async Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
+        public Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
             CancellationToken cancellationToken = default)
         {
-            using var request = new HttpRequestMessage(
-                HttpMethod.Post,
-                CustomerApiEndpoints.CreateVerification);
+            return CreateVerification<CreatedVerification>(cancellationToken);
+        }
 
-            var tokenOperation = await EnsureTokenAsync(cancellationToken).ConfigureAwait(false);
-
-            if (!tokenOperation.IsSuccess)
-            {
-                if (_options.ThrowOnErrorStatusCode)
-                {
-                    throw new VerificationSdkException(
-                        "Unable to authenticate user",
-                        tokenOperation.StatusCode);
-                }
-
-                return OperationResult<CreatedVerification>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
-            }
-
-            request.Headers.Authorization =
-                new AuthenticationHeaderValue("Bearer", tokenOperation.Value!.AccessToken);
-
-            using var response = await _customerClient.SendAsync(
-                request,
-                HttpCompletionOption.ResponseHeadersRead,
-                cancellationToken).ConfigureAwait(false);
-
-            return await HandleResponseAsync<CreatedVerification>(
-                response,
-                "Failed to create verification",
-                cancellationToken).ConfigureAwait(false);
+        public Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
+            string? referenceId = null,
+            CancellationToken cancellationToken = default)
+        {
+            return CreateVerification<CreatedWebVerification>(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("referenceId", referenceId));
         }
 
         public async Task<OperationResult<Verification>> GetVerificationAsync(
@@ -240,7 +226,7 @@ namespace V5iD.PublicSdk.Clients
                 }
 
                 return OperationResult<Verification>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
+                    tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
             }
 
             request.Headers.Authorization =
@@ -319,7 +305,7 @@ namespace V5iD.PublicSdk.Clients
                 }
 
                 return OperationResult<NewUploadedFile>.Failure(
-                    tokenOperation.StatusCode, "Unable to authenticate user");
+                    tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
             }
 
             request.Headers.Authorization =
@@ -339,6 +325,57 @@ namespace V5iD.PublicSdk.Clients
         #endregion
 
         #region Internal helpers
+        
+        private async Task<OperationResult<T>> CreateVerification<T>(CancellationToken cancellationToken, string requestUri = CustomerApiEndpoints.CreateVerification, params (string Name, string? Value)[] queryParams)
+        where T: CreatedVerification
+        {
+            var finalUri = requestUri;
+
+            if (queryParams.Length != 0)
+            {
+                var filteredParams = queryParams.Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value));
+                if (!filteredParams.Any())
+                {
+                    finalUri = QueryHelpers.AddQueryString(
+                            requestUri,
+                            queryParams
+                                .Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value))
+                                .ToDictionary(p => p.Name, p => p.Value ?? string.Empty)!);
+                }
+            }
+            
+            using var request = new HttpRequestMessage(
+                HttpMethod.Post,
+                finalUri);
+
+            var tokenOperation = await EnsureTokenAsync(cancellationToken).ConfigureAwait(false);
+
+            if (!tokenOperation.IsSuccess)
+            {
+                if (_options.ThrowOnErrorStatusCode)
+                {
+                    throw new VerificationSdkException(
+                        "Unable to authenticate user",
+                        tokenOperation.StatusCode);
+                }
+
+                return OperationResult<T>.Failure(
+                    tokenOperation.StatusCode, "Unable to authenticate user", rawResponseBody: tokenOperation.RawResponseBody);
+            }
+
+            request.Headers.Authorization =
+                new AuthenticationHeaderValue("Bearer", tokenOperation.Value!.AccessToken);
+
+            using var response = await _customerClient.SendAsync(
+                request,
+                HttpCompletionOption.ResponseHeadersRead,
+                cancellationToken).ConfigureAwait(false);
+
+            return await HandleResponseAsync<T>(
+                response,
+                "Failed to create verification",
+                cancellationToken).ConfigureAwait(false);
+        }
 
         private async Task<OperationResult<T>> HandleResponseAsync<T>(
             HttpResponseMessage response,
@@ -400,7 +437,7 @@ namespace V5iD.PublicSdk.Clients
                     body);
             }
 
-            return OperationResult<T>.Success(value, response.StatusCode);
+            return OperationResult<T>.Success(value, response.StatusCode, rawResponseBody: body);
         }
         
         private sealed class NonDisposingStream : Stream

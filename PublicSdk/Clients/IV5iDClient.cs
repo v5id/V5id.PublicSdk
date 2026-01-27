@@ -25,5 +25,9 @@ namespace V5iD.PublicSdk.Clients
             string contentType = "application/octet-stream",
             bool leaveOpen = false,
             CancellationToken cancellationToken = default);
+
+        Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
+            string? referenceId = null,
+            CancellationToken cancellationToken = default);
     }
 }

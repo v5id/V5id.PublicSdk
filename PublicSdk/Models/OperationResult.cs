@@ -18,12 +18,18 @@ public sealed class OperationResult<T>
     public string? RawResponseBody { get; init; }
     public T? Value { get; init; }
 
-    public static OperationResult<T> Success(T? value, HttpStatusCode statusCode)
+    private OperationResult()
+    {
+        
+    }
+
+    public static OperationResult<T> Success(T? value, HttpStatusCode statusCode, string? rawResponseBody = null)
         => new()
         {
             IsSuccess = true,
             StatusCode = statusCode,
-            Value = value
+            Value = value,
+            RawResponseBody = rawResponseBody
         };
 
     public static OperationResult<T> Failure(

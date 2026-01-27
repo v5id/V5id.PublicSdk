@@ -12,6 +12,8 @@ public class Verification
     public string VerificationUuid { get; init; } = string.Empty;
 
     public string ClientId { get; init; } = string.Empty;
+    
+    public string? ReferenceId { get; init; }
 
     public VerificationStatus VerificationStatus { get; init; }
     
@@ -19,9 +21,13 @@ public class Verification
     
     public int? Age { get; init; }
     
+    public LivenessVerificationStatus? LivenessVerificationStatus { get; init; }
+    
     public DateTimeOffset CreatedDate { get; init; }
 
     public DateTimeOffset ModifiedDate { get; init; }
+    
+    public DateTimeOffset? AgreementAcceptedAt { get; init; }
 
     public bool SupportRequestSend { get; init; }
 
