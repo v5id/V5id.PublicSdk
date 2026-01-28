@@ -15,7 +15,7 @@ public class FaceCompare
 
     public required Guid TargetFace { get; init; }
 
-    public double CompareResult { get; init; }
+    public double Similarity { get; init; }
     
-    public ComparisonResult AnalysisResult { get; init; }
+    public ComparisonResult ComparisonResult { get; init; }
 }
