@@ -334,7 +334,7 @@ namespace V5iD.PublicSdk.Clients
             if (queryParams.Length != 0)
             {
                 var filteredParams = queryParams.Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value));
-                if (!filteredParams.Any())
+                if (filteredParams.Any())
                 {
                     finalUri = QueryHelpers.AddQueryString(
                             requestUri,
