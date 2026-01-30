@@ -11,6 +11,6 @@ public enum VerificationStatus
     None = 0,
     Processing = 1,
     Success = 2,
-    Failed = 3,
+    Failure = 3,
     Warning = 4
 }

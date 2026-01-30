@@ -14,6 +14,6 @@ public enum VerificationState
     Completed = 3,
     Inactive = 4,
     Disabled = 5,
-    ToBeDeleted = 6,
+    PendingDeletion = 6,
     Deleted = 7,
 }
