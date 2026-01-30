@@ -6,11 +6,14 @@ namespace V5iD.PublicSdk.Enums;
 using System.Text.Json.Serialization;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum VerificationOverallStatus
+public enum VerificationState
 {
     None = 0,
-    Processing = 1,
-    Success = 2,
-    Fail = 3,
-    Warning = 4
+    NotStarted = 1,
+    Active = 2,
+    Completed = 3,
+    Inactive = 4,
+    Disabled = 5,
+    PendingDeletion = 6,
+    Deleted = 7,
 }

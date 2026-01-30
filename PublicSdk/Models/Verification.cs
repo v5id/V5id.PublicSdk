@@ -15,9 +15,9 @@ public class Verification
     
     public string? ReferenceId { get; init; }
 
-    public VerificationStatus VerificationStatus { get; init; }
+    public VerificationState State { get; init; }
     
-    public VerificationOverallStatus VerificationOverallStatus { get; init; }
+    public VerificationStatus Status { get; init; }
     
     public int? Age { get; init; }
     

@@ -7,6 +7,6 @@ namespace V5iD.PublicSdk.Models
 {
     public class VerifyStatus
     { 
-        public VerificationOverallStatus OverallStatus { get; set; }
+        public VerificationStatus Status { get; set; }
     }
 }
