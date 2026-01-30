@@ -9,11 +9,8 @@ using System.Text.Json.Serialization;
 public enum VerificationStatus
 {
     None = 0,
-    NotStarted = 1,
-    Active = 2,
-    Completed = 3,
-    Inactive = 4,
-    Disabled = 5,
-    ToBeDeleted = 6,
-    Deleted = 7,
+    Processing = 1,
+    Success = 2,
+    Failed = 3,
+    Warning = 4
 }
