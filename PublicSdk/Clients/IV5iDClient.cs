@@ -15,7 +15,7 @@ namespace V5iD.PublicSdk.Clients
         Task<OperationResult<CreatedVerification>> CreateVerificationAsync(
             CancellationToken cancellationToken = default);
 
-        Task<OperationResult<Verification>> GetVerificationAsync(
+        Task<OperationResult<Verification>> GetVerificationAsync(string verificationId,
             CancellationToken cancellationToken = default);
         
         Task<OperationResult<NewUploadedFile>> UploadFileAsync(FileType fileType,

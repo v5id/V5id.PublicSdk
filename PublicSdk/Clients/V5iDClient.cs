@@ -208,11 +208,14 @@ namespace V5iD.PublicSdk.Clients
         }
 
         public async Task<OperationResult<Verification>> GetVerificationAsync(
+            string verificationId,
             CancellationToken cancellationToken = default)
         {
+            var endpoint = CustomerApiEndpoints.GetVerification(verificationId);
+
             using var request = new HttpRequestMessage(
                 HttpMethod.Get,
-                CustomerApiEndpoints.GetVerification);
+                endpoint);
 
             var tokenOperation = await EnsureTokenAsync(cancellationToken).ConfigureAwait(false);
 

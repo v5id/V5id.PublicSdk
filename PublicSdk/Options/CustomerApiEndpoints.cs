@@ -11,6 +11,7 @@ namespace V5iD.PublicSdk.Options
         
         internal const string CreateWebVerification = "verify/web";
 
-        internal const string GetVerification = "verify";
+        internal static string GetVerification(string id)
+            => $"verify/{id}";
     }
 }
