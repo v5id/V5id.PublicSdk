@@ -19,7 +19,7 @@ public class Verification
     
     public VerificationStatus Status { get; init; }
     
-    public int? Age { get; init; }
+    public Person? Person { get; init; }
     
     public LivenessVerificationStatus? LivenessVerificationStatus { get; init; }
     
