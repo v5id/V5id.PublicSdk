@@ -19,7 +19,7 @@ namespace PublicSdk.Tests.Clients
     public class V5iDClientTests
     {
         [Fact]
-        public async Task CreateWebVerificationWithAdditionalDataAsync_ShouldUseDedicatedRoute_AndSendJsonPayload()
+        public async Task CreateWebVerificationWithNotificationAsync_ShouldUseDedicatedRoute_AndSendJsonPayload()
         {
             string? createRequestPath = null;
             string? createRequestBody = null;
@@ -43,7 +43,7 @@ namespace PublicSdk.Tests.Clients
                         """);
                 }
 
-                if (path == "/verify/web/additional-data")
+                if (path == "/verify/web/notification")
                 {
                     createRequestPath = path;
                     authorizationToken = request.Headers.Authorization?.Parameter;
@@ -105,9 +105,9 @@ namespace PublicSdk.Tests.Clients
             Assert.Equal("verification-123", result.Value!.VerificationUuid);
             Assert.Equal("https://example.test/redirect", result.Value.RedirectUrl);
 
-            Assert.Equal("/verify/web/additional-data", createRequestPath);
+            Assert.Equal("/verify/web/notification", createRequestPath);
             Assert.Equal("test-access-token", authorizationToken);
-            Assert.Equal(new[] { "/verify/token", "/verify/web/additional-data" }, requestedPaths);
+            Assert.Equal(new[] { "/verify/token", "/verify/web/notification" }, requestedPaths);
 
             Assert.NotNull(createRequestBody);
             using var bodyJson = JsonDocument.Parse(createRequestBody!);
