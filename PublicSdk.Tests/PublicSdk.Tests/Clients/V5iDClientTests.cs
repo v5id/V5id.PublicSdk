@@ -95,6 +95,7 @@ namespace PublicSdk.Tests.Clients
                 FirstName = "John",
                 LastName = "Doe",
                 Phone = "+15551234567",
+                Email = "test@test.com",
                 NotifyByEmailWhenVerificationIsComplete = true
             };
 
