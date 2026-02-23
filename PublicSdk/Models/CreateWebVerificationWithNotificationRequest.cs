@@ -12,6 +12,8 @@ namespace V5iD.PublicSdk.Models
         public required string LastName { get; set; }
 
         public required string Phone { get; set; }
+        
+        public string? Email { get; set; }
 
         public bool NotifyByEmailWhenVerificationIsComplete { get; set; }
     }
