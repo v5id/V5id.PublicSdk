@@ -29,5 +29,9 @@ namespace V5iD.PublicSdk.Clients
         Task<OperationResult<CreatedWebVerification>> CreateWebVerificationAsync(
             string? referenceId = null,
             CancellationToken cancellationToken = default);
+
+        Task<OperationResult<CreatedWebVerification>> CreateWebVerificationWithNotificationAsync(
+            CreateWebVerificationWithNotificationRequest request,
+            CancellationToken cancellationToken = default);
     }
 }
