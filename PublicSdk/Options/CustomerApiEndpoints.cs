@@ -11,6 +11,8 @@ namespace V5iD.PublicSdk.Options
         
         internal const string CreateWebVerification = "verify/web";
 
+        internal const string CreateWebVerificationWithNotification = "verify/web/notification";
+
         internal const string GetVerification = "verify";
     }
 }

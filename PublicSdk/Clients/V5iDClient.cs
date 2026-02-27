@@ -207,6 +207,17 @@ namespace V5iD.PublicSdk.Clients
             return CreateVerification<CreatedWebVerification>(cancellationToken, CustomerApiEndpoints.CreateWebVerification, ("referenceId", referenceId));
         }
 
+        public Task<OperationResult<CreatedWebVerification>> CreateWebVerificationWithNotificationAsync(
+            CreateWebVerificationWithNotificationRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            ArgumentNullException.ThrowIfNull(request);
+            return CreateVerification<CreatedWebVerification, CreateWebVerificationWithNotificationRequest>(
+                request,
+                CustomerApiEndpoints.CreateWebVerificationWithNotification,
+                cancellationToken);
+        }
+
         public async Task<OperationResult<Verification>> GetVerificationAsync(
             CancellationToken cancellationToken = default)
         {
@@ -326,8 +337,36 @@ namespace V5iD.PublicSdk.Clients
 
         #region Internal helpers
         
-        private async Task<OperationResult<T>> CreateVerification<T>(CancellationToken cancellationToken, string requestUri = CustomerApiEndpoints.CreateVerification, params (string Name, string? Value)[] queryParams)
-        where T: CreatedVerification
+        private Task<OperationResult<TResponse>> CreateVerification<TResponse, TRequest>(
+            TRequest requestBody,
+            string requestUri,
+            CancellationToken cancellationToken,
+            params (string Name, string? Value)[] queryParams)
+            where TResponse : CreatedVerification
+        {
+            ArgumentNullException.ThrowIfNull(requestBody);
+
+            var jsonOptions = _options.JsonSerializerOptions ?? DefaultJsonOptions;
+            var content = JsonContent.Create(requestBody, options: jsonOptions);
+
+            return CreateVerificationCore<TResponse>(requestUri, content, cancellationToken, queryParams);
+        }
+
+        private Task<OperationResult<T>> CreateVerification<T>(
+            CancellationToken cancellationToken,
+            string requestUri = CustomerApiEndpoints.CreateVerification,
+            params (string Name, string? Value)[] queryParams)
+            where T : CreatedVerification
+        {
+            return CreateVerificationCore<T>(requestUri, content: null, cancellationToken, queryParams);
+        }
+
+        private async Task<OperationResult<T>> CreateVerificationCore<T>(
+            string requestUri,
+            HttpContent? content,
+            CancellationToken cancellationToken,
+            params (string Name, string? Value)[] queryParams)
+            where T : CreatedVerification
         {
             var finalUri = requestUri;
 
@@ -347,6 +386,11 @@ namespace V5iD.PublicSdk.Clients
             using var request = new HttpRequestMessage(
                 HttpMethod.Post,
                 finalUri);
+
+            if (content is not null)
+            {
+                request.Content = content;
+            }
 
             var tokenOperation = await EnsureTokenAsync(cancellationToken).ConfigureAwait(false);
 
