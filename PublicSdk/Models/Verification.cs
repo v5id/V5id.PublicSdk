@@ -40,4 +40,6 @@ public class Verification
     public IList<UploadedFile> UploadedFiles { get; init; } = [];
 
     public IEnumerable<OverallAnalysis> OverallAnalysis { get; init; } = [];
+    
+    public AnalysisGroup? ConsistencyAnalysis { get; init; }
 }
