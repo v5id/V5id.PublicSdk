@@ -41,5 +41,5 @@ public class Verification
 
     public IEnumerable<OverallAnalysis> OverallAnalysis { get; init; } = [];
     
-    public AnalysisGroup? ConsistencyAnalysis { get; init; }
+    public IList<AnalysisGroup>? DocumentSummary { get; init; }
 }
