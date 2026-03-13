@@ -29,5 +29,5 @@ public class MrzDetail
         
     public MrzType MrzType { get; init; }
 
-    public IList<MrzAnalyzer>? MrzAnalyzerResponses { get; init; }
+    public ICollection<AnalysisGroup>? MrzAnalysis { get; init; }
 }

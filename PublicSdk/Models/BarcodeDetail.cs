@@ -12,5 +12,5 @@ public class BarcodeDetail
 
     public BarcodePdf417Formatted FormattedBarcode { get; init; } = new();
     
-    public ICollection<BarcodeAnalysisGroup>? BarcodeAnalysis { get; init; }
+    public ICollection<AnalysisGroup>? BarcodeAnalysis { get; init; }
 }
