@@ -1,16 +1,14 @@
 // © Copyright (c) V5iD, Inc. All rights reserved.
 // Licensed under the MIT.
 
-using V5iD.PublicSdk.Enums;
+using System.Collections.Generic;
 
 namespace V5iD.PublicSdk.Models
 {
-    public class LivenessVerificationStatus
+    public class FaceComparisonSection
     {
         public string? Tooltip { get; init; }
         
-        public float? Confidence { get; init; }
-        
-        public LivenessStatus Status { get; init; }
+        public IList<FaceCompare>? FaceCompareResults { get; init; }
     }
 }
