@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace V5iD.PublicSdk.Models
 {
-    public class FaceComparisonSection
+    public class Tooltip
     {
-        public Tooltip? Tooltip { get; init; }
+        public required string Title { get; init; }
         
-        public IList<FaceCompare>? FaceCompareResults { get; init; }
+        public IList<TooltipItem> Items { get; init; } = [];
     }
 }

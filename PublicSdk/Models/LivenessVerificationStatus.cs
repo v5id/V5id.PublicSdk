@@ -7,7 +7,7 @@ namespace V5iD.PublicSdk.Models
 {
     public class LivenessVerificationStatus
     {
-        public string? Tooltip { get; init; }
+        public Tooltip? Tooltip { get; init; }
         
         public float? Confidence { get; init; }
         
