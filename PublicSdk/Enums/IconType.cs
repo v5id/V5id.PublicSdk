@@ -6,11 +6,10 @@ using System.Text.Json.Serialization;
 namespace V5iD.PublicSdk.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum LivenessStatus
+    public enum IconType
     {
-        None = 0,
-        Succeeded = 1,
-        Warning = 2,
-        Failed = 3
+        Success,
+        Warning, 
+        Failed
     }
 }

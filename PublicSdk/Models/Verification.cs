@@ -31,7 +31,7 @@ public class Verification
 
     public bool SupportRequestSend { get; init; }
 
-    public IList<FaceCompare>? FaceCompareResults { get; init; }
+    public FaceComparisonSection? FaceComparisonSection { get; init; }
 
     public IList<SignatureCompare>? SignatureCompareResults { get; init; }
 
