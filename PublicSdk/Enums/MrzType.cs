@@ -11,5 +11,7 @@ public enum MrzType
     Unknown = 0, 
     TD1 = 1, 
     TD2 = 2, 
-    TD3 = 3
+    TD3 = 3,
+    MrvA = 4,
+    MrvB = 5
 }
