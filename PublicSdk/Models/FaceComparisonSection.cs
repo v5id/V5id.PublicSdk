@@ -10,5 +10,7 @@ namespace V5iD.PublicSdk.Models
         public Tooltip? Tooltip { get; init; }
         
         public IList<FaceCompare>? FaceCompareResults { get; init; }
+
+        public FaceCompare? HighestMatch { get; init; }
     }
 }
