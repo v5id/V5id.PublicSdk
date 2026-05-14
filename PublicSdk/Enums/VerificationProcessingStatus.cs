@@ -21,4 +21,6 @@ public enum VerificationProcessingStatus
     MessageSent = 5,
 
     Verified = 6,
+
+    NotApplicable = 7,
 }
