@@ -19,7 +19,9 @@ Auth via `TokenRequest` / `TokenResponse` (API key style).
 
 Strong typing on enums: `FileType`, `VerifyStatus`, `VerificationProcessingStatus`. `VerificationProcessingStatus.NotApplicable = 7` is the terminal per-file face-state used when a document side has no detectable face (Face.Api publishes `NoFaceFoundOnDocument`, Customer.Api persists `NotApplicable`).
 
-`FaceComparisonSection` carries `Tooltip`, `FaceCompareResults`, and `HighestMatch` (the best compare across the section). `DocumentRecognition.FaceComparisonSection` is per-document — populated by Customer.Api with compares whose source/target upload-file matches that document.
+`FaceComparisonSection` carries `Tooltip`, `FaceCompareResults`, `HighestMatch`, and `LowestMatch`. It lives only on `Verification` (top-level, aggregated across the verification). There is no per-document section — the document-side face surface is two named items inside `Verification.DocumentSummary.FaceMatches`.
+
+`DocumentSummary` is a record `{ IList<AnalysisGroup> AnalysisGroups, FaceMatchSummary? FaceMatches }`. `FaceMatchSummary` is `{ IList<FaceMatchItem> Items }` and always contains exactly two items keyed `FaceToDocumentMatch` (selfie ↔ document, highest similarity) and `FaceFrontToBackMatch` (document-front ↔ document-back). When the underlying compare is absent the item's `Result` is null and `Status` is `Unrecognized`.
 
 ## Tech
 .NET 8 (single TFM), minimal external deps (`Microsoft.AspNetCore.WebUtilities` 8.0.0, `Microsoft.Extensions.Options` 8.0.0).
