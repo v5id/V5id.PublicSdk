@@ -5,7 +5,4 @@ namespace V5iD.PublicSdk.Models;
 
 using System.Collections.Generic;
 
-public record DocumentSummary(
-    IList<AnalysisGroup> AnalysisGroups,
-    FaceMatchSummary? FaceMatches
-);
+public record DocumentSummary(IList<AnalysisGroup> AnalysisGroups);
