@@ -53,6 +53,4 @@ public class DocumentRecognition
     public MrzDetail? MrzDetailResponse { get; init; }
         
     public IList<AnalysisGroup>? AnalysisGroups { get; init; }
-
-    public FaceComparisonSection? FaceComparisonSection { get; init; }
 }
