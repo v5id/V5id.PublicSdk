@@ -1,6 +1,7 @@
 // © Copyright (c) V5iD, Inc. All rights reserved.
 // Licensed under the MIT.
 
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using V5iD.PublicSdk.Helpers;
@@ -101,6 +102,38 @@ namespace PublicSdk.Tests.Barcode
             Assert.NotSame(original, copy);
             Assert.NotNull(copy.Errors);
             Assert.Equal(original.Errors.Count, copy.Errors.Count);
+            Assert.Equal(original.Errors[0], copy.Errors[0]);
+            Assert.Equal(original.Errors[1], copy.Errors[1]);
+        }
+
+        //BarcodePdf417Formatted barcodePdf417Formatted = DeepCopyHelper.Copy<BarcodePdf417, BarcodePdf417Formatted>(barcode);
+        [Fact]
+        public void Copy_ShouldCopyErrorCollectionBarcodePdf417()
+        {
+            // Arrange
+            BarcodePdf417 original = new()
+            {
+                FirstName = "Alex",
+                LastName = "Smith",
+                DateOfBirth = "01011990",
+            };
+
+            original.Errors.Add("Error1");
+            original.Errors.Add("Error2");
+
+            // Act
+            BarcodePdf417Formatted copy = DeepCopyHelper.Copy<BarcodePdf417, BarcodePdf417Formatted>(original);
+
+            // Assert
+            Assert.Equal(original.FirstName, copy.FirstName);
+            Assert.Equal(original.LastName, copy.LastName);
+            DateTime.TryParseExact(original.DateOfBirth, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date);
+            Assert.Equal(date, copy.DateOfBirth);
+            Assert.NotSame(original, copy);
+            Assert.NotNull(copy.Errors);
+            Assert.Equal(original.Errors.Count, copy.Errors.Count);
+            Assert.Equal(original.Errors[0], copy.Errors[0]);
+            Assert.Equal(original.Errors[1], copy.Errors[1]);
         }
 
         [Fact]

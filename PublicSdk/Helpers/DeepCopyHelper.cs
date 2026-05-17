@@ -6,6 +6,7 @@ namespace V5iD.PublicSdk.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -21,8 +22,8 @@ internal static class DeepCopyHelper
     /// <returns>A new instance of type <typeparamref name="TTarget"/> with copied properties from <paramref name="source"/>.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is null.</exception>
     internal static TTarget Copy<TSource, TTarget>(TSource source)
-    where TSource : class
-    where TTarget : class, new()
+        where TSource : class
+        where TTarget : class, new()
     {
         ArgumentNullException.ThrowIfNull(source);
 
@@ -36,7 +37,7 @@ internal static class DeepCopyHelper
             PropertyInfo? targetProperty =
                 targetProperties.FirstOrDefault(p => p.Name == sourceProperty.Name);
 
-            if (targetProperty == null || !targetProperty.CanWrite)
+            if (targetProperty == null)
             {
                 continue;
             }
@@ -45,7 +46,11 @@ internal static class DeepCopyHelper
 
             if (value == null)
             {
-                targetProperty.SetValue(target, null);
+                if (targetProperty.CanWrite)
+                {
+                    targetProperty.SetValue(target, null);
+                }
+
                 continue;
             }
 
@@ -55,7 +60,10 @@ internal static class DeepCopyHelper
             // String -> DateTime?
             if (targetType == typeof(DateTime?) && value is string stringValue)
             {
-                targetProperty.SetValue(target, ConvertToDateTime(stringValue));
+                if (targetProperty.CanWrite)
+                {
+                    targetProperty.SetValue(target, ConvertToDateTime(stringValue));
+                }
             }
 
             // Arrays
@@ -67,38 +75,104 @@ internal static class DeepCopyHelper
 
                 sourceArray.CopyTo(copiedArray, 0);
 
-                targetProperty.SetValue(target, copiedArray);
+                if (targetProperty.CanWrite)
+                {
+                    targetProperty.SetValue(target, copiedArray);
+                }
             }
 
-            // List<T>
+            // Collection<T>
             else if (targetType.IsGenericType &&
-                     targetType.GetGenericTypeDefinition() == typeof(List<>))
+                     targetType.GetGenericTypeDefinition() == typeof(Collection<>))
+            {
+                IList targetList;
+
+                // Property has setter
+                if (targetProperty.CanWrite)
+                {
+                    targetList = (IList)Activator.CreateInstance(targetType)!;
+
+                    foreach (object item in (IEnumerable)value)
+                    {
+                        targetList.Add(item);
+                    }
+
+                    targetProperty.SetValue(target, targetList);
+                }
+                else
+                {
+                    // Read-only property
+                    object? existingCollection = targetProperty.GetValue(target);
+
+                    if (existingCollection is IList existingList)
+                    {
+                        foreach (object item in (IEnumerable)value)
+                        {
+                            existingList.Add(item);
+                        }
+                    }
+                }
+            }
+
+            // IList<T>, List<T>, ICollection<T>, etc.
+            else if (typeof(IEnumerable).IsAssignableFrom(targetType) &&
+                     targetType != typeof(string) &&
+                     targetType.IsGenericType)
             {
                 Type elementType = targetType.GetGenericArguments()[0];
 
-                IList copiedList = (IList)Activator.CreateInstance(targetType)!;
+                IList targetList;
+
+                // Try create concrete instance
+                Type concreteType =
+                    targetType.IsInterface
+                        ? typeof(List<>).MakeGenericType(elementType)
+                        : targetType;
+
+                targetList = (IList)Activator.CreateInstance(concreteType)!;
 
                 foreach (object item in (IEnumerable)value)
                 {
-                    copiedList.Add(item);
+                    targetList.Add(item);
                 }
 
-                targetProperty.SetValue(target, copiedList);
+                if (targetProperty.CanWrite)
+                {
+                    targetProperty.SetValue(target, targetList);
+                }
+                else
+                {
+                    object? existingCollection = targetProperty.GetValue(target);
+
+                    if (existingCollection is IList existingList)
+                    {
+                        foreach (object item in targetList)
+                        {
+                            existingList.Add(item);
+                        }
+                    }
+                }
             }
 
             // Exact type match
             else if (targetType == sourceType)
             {
-                targetProperty.SetValue(target, value);
+                if (targetProperty.CanWrite)
+                {
+                    targetProperty.SetValue(target, value);
+                }
             }
 
             // Convertible types
             else
             {
-                object convertedValue =
-                    Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
+                if (targetProperty.CanWrite)
+                {
+                    object convertedValue =
+                        Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
 
-                targetProperty.SetValue(target, convertedValue);
+                    targetProperty.SetValue(target, convertedValue);
+                }
             }
         }
 
