@@ -26,17 +26,32 @@ namespace PublicSdk.Tests
     public void FormatData_FormatCode_ShouldFormatCorrectly()
     {
         // Arrange
-        TestObject testObject = new() { Code = "483948239" };
+        TestObject testObject = new() { Code = "4839482398" };
 
         // Act
         string result = FormattingHelper.FormatCode(testObject.Code, testObject.Errors);
 
         // Assert
-        Assert.Equal("48394-8239", result);
+        Assert.Equal("48394-82398", result);
         Assert.True(testObject.Errors.Count == 0);
     }
 
-    [Fact]
+        //97003-21730
+        [Fact]
+        public void FormatData_FormatCode_ShouldFormatOregonZipCode()
+        {
+            // Arrange
+            TestObject testObject = new() { Code = "97003-21730" };
+
+            // Act
+            string result = FormattingHelper.FormatCode(testObject.Code, testObject.Errors);
+
+            // Assert
+            Assert.Equal("97003-2173", result);
+            Assert.True(testObject.Errors.Count == 0);
+        }
+
+        [Fact]
     public void FormatData_InvalidCode_ShouldReturnSameValue()
     {
         // Arrange

@@ -20,40 +20,38 @@ internal static class FormattingHelper
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            errors.Add("Postal code is empty.");
+            errors.Add("Postal code could not be formatted.");
             return string.Empty;
         }
 
-        string trimmedValue = value.Trim().Replace(" ", "").Replace("-", "");
+        bool hadHyphen = value.Contains('-', StringComparison.OrdinalIgnoreCase);
 
-        // US ZIP / ZIP+4
+        string trimmedValue = value.Trim()
+                                   .Replace(" ", "", StringComparison.OrdinalIgnoreCase)
+                                   .Replace("-", "", StringComparison.OrdinalIgnoreCase);
+
         if (trimmedValue.All(char.IsDigit))
         {
-            if (trimmedValue.Length == 5)
+            // Some PDF417 ZIP+4 values contain an extra trailing digit
+            // when already formatted with a hyphen.
+            if (hadHyphen && trimmedValue.Length == 10)
             {
-                return trimmedValue;
+                trimmedValue = trimmedValue[..9];
             }
 
-            if (trimmedValue.Length == 9)
-            {
-                return trimmedValue.Insert(5, "-");
-            }
+            return trimmedValue.Length > 5
+                ? trimmedValue.Insert(5, "-")
+                : trimmedValue;
         }
 
-        // Canadian postal code
-        if (trimmedValue.Length == 6 &&
-            char.IsLetter(trimmedValue[0]) &&
-            char.IsDigit(trimmedValue[1]) &&
-            char.IsLetter(trimmedValue[2]) &&
-            char.IsDigit(trimmedValue[3]) &&
-            char.IsLetter(trimmedValue[4]) &&
-            char.IsDigit(trimmedValue[5]))
+        // Canadian postal code support
+        if (trimmedValue.Length == 6)
         {
             return trimmedValue.Insert(3, " ").ToUpperInvariant();
         }
 
         errors.Add("Postal code could not be formatted.");
-        return trimmedValue;
+        return value.Trim();
     }
 
     /// <summary>
