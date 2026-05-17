@@ -11,28 +11,49 @@ using Models;
 internal static class FormattingHelper
 {
     /// <summary>
-    /// Formats a postal code by trimming whitespace and optionally inserting a hyphen.
+    /// Formats a postal code by trimming whitespace and optionally inserting a hyphen or space.
     /// </summary>
     /// <param name="value">The postal code string to format.</param>
     /// <param name="errors">A collection to hold any errors that occur during formatting.</param>
     /// <returns>The formatted postal code string or the trimmed value if formatting fails.</returns>
     public static string FormatCode(string value, Collection<string> errors)
     {
-        string trimmedValue = value.Trim();
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            errors.Add("Postal code is empty.");
+            return string.Empty;
+        }
 
+        string trimmedValue = value.Trim().Replace(" ", "").Replace("-", "");
+
+        // US ZIP / ZIP+4
         if (trimmedValue.All(char.IsDigit))
         {
-            return trimmedValue.Length > 5 ? trimmedValue.Insert(5, "-") : trimmedValue;
+            if (trimmedValue.Length == 5)
+            {
+                return trimmedValue;
+            }
+
+            if (trimmedValue.Length == 9)
+            {
+                return trimmedValue.Insert(5, "-");
+            }
         }
-        else if (trimmedValue.Length == 6)
+
+        // Canadian postal code
+        if (trimmedValue.Length == 6 &&
+            char.IsLetter(trimmedValue[0]) &&
+            char.IsDigit(trimmedValue[1]) &&
+            char.IsLetter(trimmedValue[2]) &&
+            char.IsDigit(trimmedValue[3]) &&
+            char.IsLetter(trimmedValue[4]) &&
+            char.IsDigit(trimmedValue[5]))
         {
-            return trimmedValue.Insert(3, " ");
+            return trimmedValue.Insert(3, " ").ToUpperInvariant();
         }
-        else
-        {
-            errors.Add("Postal code could not be formatted.");
-            return trimmedValue;
-        }
+
+        errors.Add("Postal code could not be formatted.");
+        return trimmedValue;
     }
 
     /// <summary>
