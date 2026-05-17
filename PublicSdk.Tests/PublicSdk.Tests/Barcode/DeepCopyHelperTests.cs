@@ -1,6 +1,7 @@
 // © Copyright (c) V5iD, Inc. All rights reserved.
 // Licensed under the MIT.
 
+using System.ComponentModel;
 using System.Globalization;
 using V5iD.PublicSdk.Helpers;
 using V5iD.PublicSdk.Models;
@@ -23,9 +24,19 @@ namespace PublicSdk.Tests.Barcode
             public string? AnotherDateTime { get; set; }
         }
 
+        public class TestObject2 : TestObject
+        {
+            public List<string> Errors { get; set; } = [];
+        }
+
         public class FormattedTestObject : BaseObject
         {
             public DateTime? AnotherDateTime { get; set; }
+        }
+
+        public class FormattedTestObject2 : FormattedTestObject
+        {
+            public List<string> Errors { get; set; } = [];
         }
 
         [Fact]
@@ -64,6 +75,32 @@ namespace PublicSdk.Tests.Barcode
             DateTime.TryParseExact(original.AnotherDateTime, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date);
             Assert.Equal(date, copy.AnotherDateTime);
             Assert.NotSame(original, copy);
+        }
+
+        [Fact]
+        public void Copy_ShouldCopyErrorCollection()
+        {
+            // Arrange
+            TestObject2 original = new()
+            {
+                Id = 1,
+                Name = "Test",
+                DateTime = DateTime.UtcNow,
+                AnotherDateTime = "04032021",
+                Errors = new List<string> { "Error1", "Error2" }
+            };
+
+            // Act
+            FormattedTestObject2 copy = DeepCopyHelper.Copy<TestObject2, FormattedTestObject2>(original);
+            // Assert
+            Assert.Equal(original.Id, copy.Id);
+            Assert.Equal(original.Name, copy.Name);
+            Assert.Equal(original.DateTime, copy.DateTime);
+            DateTime.TryParseExact(original.AnotherDateTime, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date);
+            Assert.Equal(date, copy.AnotherDateTime);
+            Assert.NotSame(original, copy);
+            Assert.NotNull(copy.Errors);
+            Assert.Equal(original.Errors.Count, copy.Errors.Count);
         }
 
         [Fact]

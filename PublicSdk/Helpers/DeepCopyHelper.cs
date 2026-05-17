@@ -4,6 +4,8 @@
 namespace V5iD.PublicSdk.Helpers;
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -18,38 +20,85 @@ internal static class DeepCopyHelper
     /// <param name="source">The source object to copy properties from.</param>
     /// <returns>A new instance of type <typeparamref name="TTarget"/> with copied properties from <paramref name="source"/>.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is null.</exception>
-    internal static TTarget Copy<TSource, TTarget>(TSource source) where TSource : class where TTarget : class, new()
+    internal static TTarget Copy<TSource, TTarget>(TSource source)
+    where TSource : class
+    where TTarget : class, new()
     {
         ArgumentNullException.ThrowIfNull(source);
 
         TTarget target = new();
+
         PropertyInfo[] sourceProperties = typeof(TSource).GetProperties();
         PropertyInfo[] targetProperties = typeof(TTarget).GetProperties();
 
         foreach (PropertyInfo sourceProperty in sourceProperties)
         {
-            PropertyInfo? targetProperty = targetProperties.FirstOrDefault(p => p.Name == sourceProperty.Name);
+            PropertyInfo? targetProperty =
+                targetProperties.FirstOrDefault(p => p.Name == sourceProperty.Name);
 
-            if (targetProperty != null && targetProperty.CanWrite)
+            if (targetProperty == null || !targetProperty.CanWrite)
             {
-                object? value = sourceProperty.GetValue(source);
+                continue;
+            }
 
-                if (value == null)
+            object? value = sourceProperty.GetValue(source);
+
+            if (value == null)
+            {
+                targetProperty.SetValue(target, null);
+                continue;
+            }
+
+            Type targetType = targetProperty.PropertyType;
+            Type sourceType = sourceProperty.PropertyType;
+
+            // String -> DateTime?
+            if (targetType == typeof(DateTime?) && value is string stringValue)
+            {
+                targetProperty.SetValue(target, ConvertToDateTime(stringValue));
+            }
+
+            // Arrays
+            else if (targetType.IsArray && value is Array sourceArray)
+            {
+                Type elementType = targetType.GetElementType()!;
+
+                Array copiedArray = Array.CreateInstance(elementType, sourceArray.Length);
+
+                sourceArray.CopyTo(copiedArray, 0);
+
+                targetProperty.SetValue(target, copiedArray);
+            }
+
+            // List<T>
+            else if (targetType.IsGenericType &&
+                     targetType.GetGenericTypeDefinition() == typeof(List<>))
+            {
+                Type elementType = targetType.GetGenericArguments()[0];
+
+                IList copiedList = (IList)Activator.CreateInstance(targetType)!;
+
+                foreach (object item in (IEnumerable)value)
                 {
-                    targetProperty.SetValue(target, null);
+                    copiedList.Add(item);
                 }
-                else if (targetProperty.PropertyType == typeof(DateTime?) && value is string stringValue)
-                {
-                    targetProperty.SetValue(target, ConvertToDateTime(stringValue));
-                }
-                else if (targetProperty.PropertyType == sourceProperty.PropertyType)
-                {
-                    targetProperty.SetValue(target, value);
-                }
-                else
-                {
-                    targetProperty.SetValue(target, Convert.ChangeType(value, targetProperty.PropertyType, CultureInfo.InvariantCulture));
-                }
+
+                targetProperty.SetValue(target, copiedList);
+            }
+
+            // Exact type match
+            else if (targetType == sourceType)
+            {
+                targetProperty.SetValue(target, value);
+            }
+
+            // Convertible types
+            else
+            {
+                object convertedValue =
+                    Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
+
+                targetProperty.SetValue(target, convertedValue);
             }
         }
 
