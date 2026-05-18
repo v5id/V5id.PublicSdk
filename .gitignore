@@ -418,3 +418,6 @@ FodyWeavers.xsd
 *.msp
 
 .idea/*
+
+# Internal architecture notes — must not ship in the public SDK repo
+ARCHITECTURE.md

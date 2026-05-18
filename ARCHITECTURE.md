@@ -6,7 +6,9 @@ Part of the [V5iD platform](../ARCHITECTURE.md). See root for cross-service over
 The customer-facing SDK published to **nuget.org as `V5iD.PublicSdk`**. This is what an integrator installs.
 
 ## Surface
-Single `IV5iDClient` / `V5iDClient` HTTP client. Namespaces: `V5iD.PublicSdk.Clients`, `.Models`, `.Enums`, `.Helpers`, `.Options`.
+Single `IV5iDClient` / `V5iDClient` HTTP client. Namespaces: `V5iD.PublicSdk.Clients`, `.Models`, `.Enums`, `.Options`.
+
+Barcode models (`BaseBarcode`, `BarcodePdf417`, `BarcodePdf417Formatted`) are **bare DTOs** — plain properties only. All barcode parsing/formatting/conversion logic lives in the private `V5id.Sdk.Messaging.Barcode.Helpers` namespace (`BarcodeFormatter`, `FormattingHelpers`, `DeepCopyHelper`, `AamvaElementMap`), not here.
 
 ~43 model classes including:
 - `Verification`, `CreatedVerification`, `CreatedWebVerification`, `VerificationStatus`
@@ -19,9 +21,14 @@ Auth via `TokenRequest` / `TokenResponse` (API key style).
 
 Strong typing on enums: `FileType`, `VerifyStatus`, `VerificationProcessingStatus`. `VerificationProcessingStatus.NotApplicable = 7` is the terminal per-file face-state used when a document side has no detectable face (Face.Api publishes `NoFaceFoundOnDocument`, Customer.Api persists `NotApplicable`).
 
-`FaceComparisonSection` carries `Tooltip`, `FaceCompareResults`, `HighestMatch`, and `LowestMatch`. It lives only on `Verification` (top-level, aggregated across the verification). There is no per-document section — the document-side face surface is two named items inside `Verification.DocumentSummary.FaceMatches`.
+`FaceComparisonSection` carries `Tooltip`, `FaceCompareResults`, `HighestMatch`, and `LowestMatch`. It lives only on `Verification` (top-level, aggregated across the verification). Portal labels them `Face match best` / `Face match worst`, collapsing to a single `Face Match` card when the two refer to the same compare or share similarity. Both best and worst share the same tooltip.
 
-`DocumentSummary` is a record `{ IList<AnalysisGroup> AnalysisGroups, FaceMatchSummary? FaceMatches }`. `FaceMatchSummary` is `{ IList<FaceMatchItem> Items }` and always contains exactly two items keyed `FaceToDocumentMatch` (selfie ↔ document, highest similarity) and `FaceFrontToBackMatch` (document-front ↔ document-back). When the underlying compare is absent the item's `Result` is null and `Status` is `Unrecognized`.
+`DocumentSummary` is a single-field record `{ IList<AnalysisGroup> AnalysisGroups }`. The previous `FaceMatches: FaceMatchSummary?` field was removed; `FaceMatchSummary` and `FaceMatchItem` records are gone. Customer.Api injects one `FaceFrontToBackMatch` `AnalysisItem` per stored front↔back compare into the `AuthenticityAnalysis` group here — the similarity percent is embedded in the item's `Description` text.
+
+Per-document face data on `DocumentRecognition`:
+- `FaceMatch: double?` — selfie ↔ this specific document's face similarity, percent. `null` when no compare exists yet.
+- `AnalysisGroups[DocumentAnalysis].Items` carries one extra `AnalysisItem` `DocumentFaceImageIdentified` emitted by Customer.Api (status reflects whether Face.Api detected a face on this side).
+- Per-document recognitions deliberately **do not expose an `AuthenticityAnalysis` group** — authenticity (including front↔back compare) lives only on the top-level `DocumentSummary`.
 
 ## Tech
 .NET 8 (single TFM), minimal external deps (`Microsoft.AspNetCore.WebUtilities` 8.0.0, `Microsoft.Extensions.Options` 8.0.0).
