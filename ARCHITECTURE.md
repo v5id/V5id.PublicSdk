@@ -47,4 +47,4 @@ The internal `V5id.Sdk.Messaging` references `V5iD.PublicSdk 1.2.1.16` — that 
 ## Gotchas
 - **Models in `V5iD.PublicSdk.Models` are consumed both by integrators AND internally** (e.g. `Barcode.Api` returns `BarcodePdf417`). Changes here are simultaneously customer-facing and internal-facing — a major bump is a coordinated release across every backend.
 - **`V5id.Sdk.Messaging` transitively imports `V5iD.PublicSdk`** — bumping PublicSdk invalidates every consumer of the messaging contracts even when they didn't intend to upgrade. See [V5id.Sdk](../V5id.Sdk/ARCHITECTURE.md) for the coupling discussion.
-- **Append-only enums.** Adding a value in the middle of `VerifyStatus` / `FileType` / `VerificationProcessingStatus` reorders DB results when consumers `OrderByDescending` over enum columns. Never reorder.
+- **Append-only enums.** Adding a value in the middle of `VerifyStatus` / `FileType` / `VerificationProcessingStatus` / `IntegrationScope` reorders DB results when consumers `OrderByDescending` over enum columns. Never reorder. `IntegrationScope` and `BarcodeSubScope` are both `int`-persisted and follow the same rule.
