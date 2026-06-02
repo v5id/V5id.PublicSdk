@@ -52,7 +52,7 @@ public class DocumentRecognition
     public string? MrzString { get; init; }
     public MrzDetail? MrzDetailResponse { get; init; }
 
-    public double? FaceMatch { get; init; }
+    public double? GhostMatch { get; init; }
 
     public IList<AnalysisGroup>? AnalysisGroups { get; init; }
 }
