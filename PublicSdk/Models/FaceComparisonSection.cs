@@ -11,8 +11,10 @@ namespace V5iD.PublicSdk.Models
         
         public IList<FaceCompare>? FaceCompareResults { get; init; }
 
-        public FaceCompare? HighestMatch { get; init; }
-
-        public FaceCompare? LowestMatch { get; init; }
+        /// <summary>
+        /// The worst selfie-to-document comparison — surfaced in the summary as "Selfie-to-Document Match".
+        /// Null when the verification has no selfie↔document compare.
+        /// </summary>
+        public FaceCompare? SelfieToDocumentMatch { get; init; }
     }
 }
