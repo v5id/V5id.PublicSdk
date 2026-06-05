@@ -33,7 +33,7 @@ public sealed class BarcodePdf417 : BaseBarcode
     public string? NumberEntries { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Collection<SubFileDesignator> SubFileDesignator { get; } = [];
+    public Collection<SubFileDesignator> SubFileDesignator { get; init; } = [];
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? FileType { get; set; }
@@ -291,5 +291,5 @@ public sealed class BarcodePdf417 : BaseBarcode
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IssuerIdentification? IssuerIdentification { get; set; }
 
-    public Collection<string> Errors { get; } = [];
+    public Collection<string> Errors { get; init; } = [];
 }

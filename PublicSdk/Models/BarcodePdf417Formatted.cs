@@ -34,7 +34,7 @@ public class BarcodePdf417Formatted
     public string? NumberEntries { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Collection<SubFileDesignator> SubFileDesignator { get; } = [];
+    public Collection<SubFileDesignator> SubFileDesignator { get; init; } = [];
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? FileType { get; set; }
@@ -331,5 +331,5 @@ public class BarcodePdf417Formatted
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? MailingCity { get; set; }
 
-    public Collection<string> Errors { get; } = [];
+    public Collection<string> Errors { get; init; } = [];
 }
