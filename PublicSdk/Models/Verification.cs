@@ -44,4 +44,12 @@ public class Verification
     public DocumentSummary? DocumentSummary { get; init; }
 
     public IrAnalysis? IrAnalysis { get; init; }
+
+    public bool IsRefunded { get; init; }
+
+    public RefundReason RefundReason { get; init; }
+
+    public string? RefundExplanation { get; init; }
+
+    public DateTimeOffset? RefundedAt { get; init; }
 }
