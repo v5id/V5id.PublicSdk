@@ -5,6 +5,8 @@ namespace V5iD.PublicSdk.Models;
 
 using System;
 
+using V5iD.PublicSdk.Enums;
+
 public class FaceDetail
 {
     public Guid FaceDetailUuid { get; init; }
@@ -14,4 +16,7 @@ public class FaceDetail
     public Pose? Pose { get; init; }
 
     public AgeRange? AgeRange { get; init; }
+
+    /// <summary>Classification of this face (large / ghost / known). Set for document faces only.</summary>
+    public FaceType FaceType { get; init; }
 }
