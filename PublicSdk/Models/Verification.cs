@@ -16,9 +16,11 @@ public class Verification
     public string? ReferenceId { get; init; }
 
     public VerificationState State { get; init; }
-    
+
     public VerificationStatus Status { get; init; }
-    
+
+    public VerificationKind Kind { get; init; }
+
     public Person? Person { get; init; }
     
     public LivenessVerificationStatus? LivenessVerificationStatus { get; init; }

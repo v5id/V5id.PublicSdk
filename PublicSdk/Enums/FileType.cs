@@ -35,6 +35,10 @@ public enum FileType
     UvDocumentFront = 12,
     
     UvDocumentBack = 13,
-    
-    Agreement = 14
+
+    Agreement = 14,
+
+    StandaloneBarcode = 15,
+
+    StandaloneMrz = 16
 }
