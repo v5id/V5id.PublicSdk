@@ -10,5 +10,9 @@ public enum OverallAnalysisStatus
 {
     NotPerformed = 0,
     Started = 1,
-    Completed = 2
+    Completed = 2,
+
+    // The analysis ran but the item was not found in the document (e.g. no age on the document).
+    // Appended at the end so existing persisted values keep their meaning.
+    NotDetected = 3
 }
