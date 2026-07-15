@@ -13,12 +13,16 @@ public enum DocumentRecognitionStatus
     Warning = 2,
     Error = 3,
 
-    // "Item is present in the flow but was not found in the document" (e.g. no face on the document),
-    // as opposed to Error ("something went wrong"). Appended at the end so existing persisted values
-    // keep their meaning.
+    // "Item is not present in the document" (e.g. no face on the document), as opposed to Error
+    // ("something went wrong"). Split into Error/Success so the client knows whether the absence
+    // actually failed the verification:
+    //   NotDetectedError   — absent AND it caused the check to fail.
+    //   NotDetectedSuccess — absent but it did NOT fail the verification (benign).
+    // Appended at the end so existing persisted values keep their meaning.
     // WARNING: this enum is aggregated by severity via Math.Max in the recognition pipeline
-    // (Document.Api DocumentRecognitionService, CustomerService document summary). Because NotDetected
-    // has the highest numeric value it would win any Max() and mask a real Error. Only use it in
-    // display-only items that never flow into those Max() aggregations.
-    NotDetected = 4
+    // (Document.Api DocumentRecognitionService, CustomerService document summary). These values have
+    // the highest numbers and would win any Max() and mask a real Error. Only use them in display-only
+    // items that never flow into those Max() aggregations.
+    NotDetectedError = 4,
+    NotDetectedSuccess = 5
 }
