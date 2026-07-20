@@ -12,4 +12,10 @@ public class OverallAnalysis
     public OverallAnalysisStatus AnalysisStatus { get; init; }
 
     public ComparisonResult AnalysisResult { get; init; }
+
+    /// <summary>
+    /// False when the analysed value was not found at all (e.g. no age on the document), as opposed to
+    /// found-and-mismatched. <see cref="AnalysisResult"/> still carries the business outcome.
+    /// </summary>
+    public bool IsDetected { get; init; } = true;
 }
