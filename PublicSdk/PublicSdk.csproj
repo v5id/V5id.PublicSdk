@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-      <TargetFramework>net8.0</TargetFramework>
+      <TargetFramework>net10.0</TargetFramework>
       <Nullable>enable</Nullable>
       <Title>V5iD SDK</Title>
       <Description>V5iD® Public SDK for Identity Verification Integration</Description>
@@ -33,7 +33,6 @@
     <None Include="..\icon.png" Link="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.10" />
   </ItemGroup>
 </Project>

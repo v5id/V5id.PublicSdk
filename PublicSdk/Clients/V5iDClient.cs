@@ -2,16 +2,17 @@
 // Licensed under the MIT.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using V5iD.PublicSdk.Enums;
 using V5iD.PublicSdk.Exceptions;
@@ -352,6 +353,29 @@ namespace V5iD.PublicSdk.Clients
             return CreateVerificationCore<TResponse>(requestUri, content, cancellationToken, queryParams);
         }
 
+        // Local port of Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString,
+        // so the SDK doesn't pin an ASP.NET Core runtime package version.
+        private static string AddQueryString(string uri, IEnumerable<KeyValuePair<string, string>> queryString)
+        {
+            var anchorIndex = uri.IndexOf('#', StringComparison.Ordinal);
+            var uriToBeAppended = anchorIndex == -1 ? uri : uri.Substring(0, anchorIndex);
+            var anchorText = anchorIndex == -1 ? string.Empty : uri.Substring(anchorIndex);
+            var hasQuery = uriToBeAppended.Contains('?', StringComparison.Ordinal);
+
+            var builder = new StringBuilder(uriToBeAppended);
+            foreach (var parameter in queryString)
+            {
+                builder.Append(hasQuery ? '&' : '?');
+                builder.Append(Uri.EscapeDataString(parameter.Key));
+                builder.Append('=');
+                builder.Append(Uri.EscapeDataString(parameter.Value));
+                hasQuery = true;
+            }
+
+            builder.Append(anchorText);
+            return builder.ToString();
+        }
+
         private Task<OperationResult<T>> CreateVerification<T>(
             CancellationToken cancellationToken,
             string requestUri = CustomerApiEndpoints.CreateVerification,
@@ -370,17 +394,13 @@ namespace V5iD.PublicSdk.Clients
         {
             var finalUri = requestUri;
 
-            if (queryParams.Length != 0)
+            var filteredParams = queryParams
+                .Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value))
+                .Select(p => new KeyValuePair<string, string>(p.Name, p.Value!))
+                .ToList();
+            if (filteredParams.Count != 0)
             {
-                var filteredParams = queryParams.Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value));
-                if (filteredParams.Any())
-                {
-                    finalUri = QueryHelpers.AddQueryString(
-                            requestUri,
-                            queryParams
-                                .Where(p => !string.IsNullOrWhiteSpace(p.Name) && !string.IsNullOrWhiteSpace(p.Value))
-                                .ToDictionary(p => p.Name, p => p.Value ?? string.Empty)!);
-                }
+                finalUri = AddQueryString(requestUri, filteredParams);
             }
             
             using var request = new HttpRequestMessage(
