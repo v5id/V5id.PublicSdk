@@ -33,6 +33,14 @@ public class Verification
 
     public bool SupportRequestSend { get; init; }
 
+    public bool AssignedToCurrentUser { get; init; }
+
+    /// <summary>
+    /// Name of the support status (e.g. "Open"), never its numeric value. Kept as a string because the
+    /// SupportStatus enum lives in V5id.Sdk.Messaging, which already depends on this package.
+    /// </summary>
+    public string? SupportStatus { get; init; }
+
     public FaceComparisonSection? FaceComparisonSection { get; init; }
 
     public IList<SignatureCompare>? SignatureCompareResults { get; init; }
