@@ -30,4 +30,10 @@ public class MrzDetail
     public MrzType MrzType { get; init; }
 
     public ICollection<AnalysisGroup>? MrzAnalysis { get; init; }
+
+    /// <summary>
+    /// MRZ validation error codes, the MRZ counterpart of <c>BarcodePdf417Formatted.Errors</c>:
+    /// opaque codes only, never messages. Empty when the zone passed every check.
+    /// </summary>
+    public ICollection<string> Errors { get; init; } = [];
 }
