@@ -52,6 +52,12 @@ public class DocumentRecognition
     public string? MrzString { get; init; }
     public MrzDetail? MrzDetailResponse { get; init; }
 
+    /// <summary>
+    /// What Document AI identified this side as, or null when it could not identify it — the
+    /// "part" half of the Document summary identification.
+    /// </summary>
+    public DocumentClassifierDetail? ClassifierDetail { get; init; }
+
     public double? GhostMatch { get; init; }
 
     public IList<AnalysisGroup>? AnalysisGroups { get; init; }
