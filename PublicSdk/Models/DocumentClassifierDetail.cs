@@ -10,16 +10,13 @@ namespace V5iD.PublicSdk.Models;
 /// as text: the classifier's vocabulary grows independently of this package, and a value we have not
 /// heard of yet should still reach the caller instead of being flattened to "Unknown".
 /// </para>
+/// <para>
+/// The raw classifier label is deliberately not exposed: it also carries the image's side and
+/// lighting, which are internal to recognition. Only the parts meant to be shown appear here.
+/// </para>
 /// </summary>
 public class DocumentClassifierDetail
 {
-    /// <summary>
-    /// The classifier's raw answer, e.g.
-    /// <c>USA_None_USDeptState_Passport_Booklet_Standard_2021_Front_VI</c>. Kept for traceability;
-    /// the fields below are what it means.
-    /// </summary>
-    public string? Label { get; init; }
-
     /// <summary>The issuing country, e.g. "USA", "MEX".</summary>
     public string? Country { get; init; }
 
