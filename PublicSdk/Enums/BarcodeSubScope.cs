@@ -13,6 +13,10 @@ namespace V5iD.PublicSdk.Enums
         DlExpirationDate = 2,
         Age = 3,
         DocumentIdNumber = 4,
-        Address = 5
+        Address = 5,
+        DateOfBirth = 6,
+        Gender = 7,
+        DocumentIssuedDate = 8,
+        Nationality = 9
     }
 }
