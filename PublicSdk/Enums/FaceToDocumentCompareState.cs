@@ -14,13 +14,19 @@ namespace V5iD.PublicSdk.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FaceToDocumentCompareState
     {
-        /// <summary>No face was detected on the document, so there was nothing to compare against.</summary>
+        /// <summary>
+        /// The comparison was not performed: no face on the document, no selfie, or the face step was
+        /// skipped.
+        /// </summary>
         NotPerformed,
 
         /// <summary>Face processing has not reached a terminal state yet.</summary>
         Processing,
 
-        /// <summary>A usable document face was found, so the comparison could be performed.</summary>
+        /// <summary>
+        /// The selfie-to-document comparison produced a result —
+        /// <see cref="Models.FaceComparisonSection.SelfieToDocumentMatch"/> is set.
+        /// </summary>
         Completed,
 
         /// <summary>Face processing finished but produced no usable face — the comparison could not complete.</summary>
