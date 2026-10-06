@@ -15,6 +15,7 @@ namespace V5iD.PublicSdk.Enums
         VerifyEmail = 4,
         VerifySignature = 5,
         OnePagePassport = 6,
-        Pdf417Barcode = 7
+        Pdf417Barcode = 7,
+        DocumentScanner = 8
     }
 }
