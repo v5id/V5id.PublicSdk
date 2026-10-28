@@ -15,8 +15,8 @@ namespace V5iD.PublicSdk.Enums
     public enum FaceToDocumentCompareState
     {
         /// <summary>
-        /// The comparison was not performed: no face on the document, no selfie, or the face step was
-        /// skipped.
+        /// The comparison was not performed: no selfie was uploaded, or the face step was skipped or not
+        /// requested.
         /// </summary>
         NotPerformed,
 
@@ -29,7 +29,10 @@ namespace V5iD.PublicSdk.Enums
         /// </summary>
         Completed,
 
-        /// <summary>Face processing finished but produced no usable face — the comparison could not complete.</summary>
+        /// <summary>
+        /// A selfie was uploaded or face processing ran, but the comparison with the document could not be
+        /// performed — no usable face on the document, or face processing failed.
+        /// </summary>
         Failed
     }
 }
